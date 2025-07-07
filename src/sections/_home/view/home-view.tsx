@@ -6,6 +6,7 @@ import { _pricingHome } from 'src/_mock';
 
 import ScrollProgress from 'src/components/scroll-progress';
 
+import Footer from 'src/layouts/main/footer';
 import HomeHero from '../home-hero';
 import HomeFAQs from '../home-faqs';
 import HomeNewStart from '../home-new-start';
@@ -42,6 +43,8 @@ export default function HomeView() {
       <HomeCombination />
 
       <HomeAdvertisement />
+
+      <Footer />
     </>
   );
 }

@@ -1,6 +1,6 @@
 'use client';
 
-import MainLayout from 'src/layouts/main';
+import Box from '@mui/material/Box';
 
 // ----------------------------------------------------------------------
 
@@ -9,5 +9,17 @@ type Props = {
 };
 
 export default function Layout({ children }: Props) {
-  return <MainLayout disabledSpacing>{children}</MainLayout>;
+  return (
+    <Box
+      sx={{
+        height: 1,
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
+      <Box component="main" sx={{ flexGrow: 1 }}>
+        {children}
+      </Box>
+    </Box>
+  );
 }
