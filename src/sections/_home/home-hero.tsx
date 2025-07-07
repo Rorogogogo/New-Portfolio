@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
 import { alpha, useTheme, keyframes } from '@mui/material/styles';
 
 import Logo from 'src/components/logo';
@@ -13,6 +14,85 @@ import Iconify from 'src/components/iconify';
 import { MotionViewport, varFade } from 'src/components/animate';
 
 // ----------------------------------------------------------------------
+
+interface StatCounterProps {
+  icon: string;
+  label: string;
+  value: number;
+  suffix: string;
+}
+
+function StatCounter({ icon, label, value, suffix }: StatCounterProps) {
+  const [count, setCount] = useState(0);
+  const [hasStarted, setHasStarted] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setHasStarted(true);
+    }, 2000); // Start counting after 2 seconds
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (!hasStarted) return;
+
+    const duration = 2000; // 2 seconds animation
+    const steps = 60; // 60 FPS
+    const increment = value / steps;
+    let current = 0;
+
+    const interval = setInterval(() => {
+      current += increment;
+      if (current >= value) {
+        setCount(value);
+        clearInterval(interval);
+      } else {
+        setCount(Math.floor(current));
+      }
+    }, duration / steps);
+
+    return () => clearInterval(interval);
+  }, [hasStarted, value]);
+
+  return (
+    <Box
+      sx={{
+        textAlign: 'inherit',
+        opacity: 0.8,
+        transition: 'opacity 0.3s ease-in-out',
+        '&:hover': {
+          opacity: 1,
+        },
+      }}
+    >
+      <Typography
+        variant="h3"
+        sx={{
+          fontSize: { xs: '1.5rem', md: '2rem' },
+          fontWeight: 700,
+          color: 'white',
+          lineHeight: 1,
+          mb: 0.5,
+        }}
+      >
+        {icon} {count}{suffix}
+      </Typography>
+      <Typography
+        variant="body2"
+        sx={{
+          fontSize: { xs: '0.75rem', md: '0.875rem' },
+          color: alpha('#FFFFFF', 0.7),
+          fontWeight: 500,
+          textTransform: 'uppercase',
+          letterSpacing: 1,
+        }}
+      >
+        {label}
+      </Typography>
+    </Box>
+  );
+}
 
 const flipAnimation = keyframes`
   0% {
@@ -304,43 +384,141 @@ export default function HomeHero() {
           m: 0,
         }}
       >
-        <m.div variants={varFade().inUp}>
-          <Box
-            sx={{
-              width: { 
-                xs: 'min(95vw, 85vh * 6/4)', 
-                sm: 'min(90vw, 80vh * 6/4)', 
-                md: 'min(85vw, 85vh * 6/4)', 
-                lg: 'min(80vw, 90vh * 6/4)',
-                xl: 'min(75vw, 95vh * 6/4)'
-              },
-              aspectRatio: '6/4',
-              position: 'relative',
-              overflow: 'hidden',
-              display: 'grid',
-              gridTemplateColumns: 'repeat(6, 1fr)',
-              gridTemplateRows: 'repeat(4, 1fr)',
-              gap: 0.5,
-              borderRadius: { xs: 2, md: 3, lg: 4 },
-              border: `1px solid ${alpha(theme.palette.grey[300], 0.2)}`,
-              backgroundColor: alpha(theme.palette.background.paper, 0.02),
-              backdropFilter: 'blur(10px)',
-              transition: 'all 0.3s ease-in-out',
-              mx: 'auto',
-              '&:hover': {
-                backgroundColor: alpha(theme.palette.background.paper, 0.05),
-                borderColor: alpha(theme.palette.grey[400], 0.3),
-                transform: { xs: 'none', md: 'translateY(-2px)' },
-                boxShadow: {
-                  xs: 'none',
-                  md: `0 8px 32px ${alpha(theme.palette.grey[900], 0.15)}`,
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: '100%',
+            maxWidth: '1400px',
+            px: { xs: 2, md: 4 },
+            position: 'relative',
+          }}
+        >
+          {/* Left Stats */}
+          <m.div variants={varFade().inLeft}>
+            <Stack
+              spacing={3}
+              sx={{
+                display: { xs: 'none', lg: 'flex' },
+                alignItems: 'flex-end',
+                position: 'absolute',
+                left: { lg: '-120px', xl: '-150px' },
+                top: '50%',
+                transform: 'translateY(-50%)',
+                textAlign: 'right',
+              }}
+            >
+              <StatCounter
+                icon="☕"
+                label="Cups of Coffee"
+                value={2847}
+                suffix=""
+              />
+              <StatCounter
+                icon="🚀"
+                label="Projects Completed"
+                value={47}
+                suffix=""
+              />
+              <StatCounter
+                icon="💻"
+                label="Lines of Code"
+                value={127}
+                suffix="K"
+              />
+              <StatCounter
+                icon="🐛"
+                label="Bugs Fixed"
+                value={1234}
+                suffix=""
+              />
+            </Stack>
+          </m.div>
+
+          {/* Center Grid */}
+          <m.div variants={varFade().inUp}>
+            <Box
+              sx={{
+                width: { 
+                  xs: 'min(95vw, 85vh * 6/4)', 
+                  sm: 'min(90vw, 80vh * 6/4)', 
+                  md: 'min(85vw, 85vh * 6/4)', 
+                  lg: 'min(75vw, 85vh * 6/4)',
+                  xl: 'min(70vw, 90vh * 6/4)'
                 },
-              },
-            }}
-          >
-            {renderGrid()}
-          </Box>
-        </m.div>
+                aspectRatio: '6/4',
+                position: 'relative',
+                overflow: 'hidden',
+                display: 'grid',
+                gridTemplateColumns: 'repeat(6, 1fr)',
+                gridTemplateRows: 'repeat(4, 1fr)',
+                gap: 0.5,
+                borderRadius: { xs: 2, md: 3, lg: 4 },
+                border: `1px solid ${alpha(theme.palette.grey[300], 0.2)}`,
+                backgroundColor: alpha(theme.palette.background.paper, 0.02),
+                backdropFilter: 'blur(10px)',
+                transition: 'all 0.3s ease-in-out',
+                mx: 'auto',
+                position: 'absolute',
+                left: '50%',
+                top: '50%',
+                transform: 'translate(-50%, -50%)',
+                '&:hover': {
+                  backgroundColor: alpha(theme.palette.background.paper, 0.05),
+                  borderColor: alpha(theme.palette.grey[400], 0.3),
+                  boxShadow: {
+                    xs: 'none',
+                    md: `0 8px 32px ${alpha(theme.palette.grey[900], 0.15)}`,
+                  },
+                },
+              }}
+            >
+              {renderGrid()}
+            </Box>
+          </m.div>
+
+          {/* Right Stats */}
+          <m.div variants={varFade().inRight}>
+            <Stack
+              spacing={3}
+              sx={{
+                display: { xs: 'none', lg: 'flex' },
+                alignItems: 'flex-start',
+                position: 'absolute',
+                right: { lg: '-120px', xl: '-150px' },
+                top: '50%',
+                transform: 'translateY(-50%)',
+                textAlign: 'left',
+              }}
+            >
+              <StatCounter
+                icon="⏰"
+                label="Years Coding"
+                value={8}
+                suffix=""
+              />
+              <StatCounter
+                icon="📊"
+                label="Stack Overflow Rep"
+                value={15.2}
+                suffix="K"
+              />
+              <StatCounter
+                icon="🎯"
+                label="Goals Achieved"
+                value={89}
+                suffix="%"
+              />
+              <StatCounter
+                icon="🌟"
+                label="GitHub Stars"
+                value={1.2}
+                suffix="K"
+              />
+            </Stack>
+          </m.div>
+        </Box>
       </Container>
     </Box>
   );
