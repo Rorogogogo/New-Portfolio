@@ -383,7 +383,9 @@ export default function HomeHero() {
       >
         <Box
           sx={{
-            display: 'block',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
             width: '100%',
             maxWidth: '1400px',
             px: { xs: 2, md: 4 },
@@ -398,7 +400,7 @@ export default function HomeHero() {
             transition={{ duration: 1, delay: 3 }}
             style={{
               position: 'absolute',
-              left: '-120px',
+              left: '-180px',
               top: '30%',
               transform: 'translateY(-50%)',
               display: 'flex',
@@ -408,10 +410,10 @@ export default function HomeHero() {
               textAlign: 'right',
             }}
           >
-            <StatCounter icon="☕" label="Cups of Coffee" value={2847} suffix="" />
-            <StatCounter icon="🚀" label="Projects Completed" value={47} suffix="" />
-            <StatCounter icon="💻" label="Lines of Code" value={127} suffix="K" />
-            <StatCounter icon="🐛" label="Bugs Fixed" value={1234} suffix="" />
+            <StatCounter icon="☕" label="Coffee Consumed Annually" value={2847} suffix="" />
+            <StatCounter icon="👥" label="Active Users" value={769} suffix="" />
+            <StatCounter icon="💻" label="Lines of Code" value={450} suffix="K" />
+            <StatCounter icon="💀" label="Deaths in Elden Ring" value={258} suffix="" />
           </m.div>
 
           {/* Center Grid */}
@@ -438,23 +440,19 @@ export default function HomeHero() {
                 backdropFilter: 'blur(10px)',
                 transition: 'all 0.3s ease-in-out',
                 mx: 'auto',
-                position: 'absolute',
-                left: '50%',
-                top: '50%',
-                transform: 'translate(-50%, -50%)',
+                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
                 '&:hover': {
                   backgroundColor: alpha(theme.palette.background.paper, 0.05),
                   borderColor: alpha(theme.palette.grey[400], 0.3),
-                  boxShadow: {
-                    xs: 'none',
-                    md: `0 8px 32px ${alpha(theme.palette.grey[900], 0.15)}`,
-                  },
+                  boxShadow: '0 16px 64px rgba(0, 0, 0, 0.4)',
+                  transform: 'translateY(-4px)',
                 },
               }}
             >
               {renderGrid()}
             </Box>
           </m.div>
+
 
           {/* Right Stats */}
           <m.div
@@ -463,7 +461,7 @@ export default function HomeHero() {
             transition={{ duration: 1, delay: 3 }}
             style={{
               position: 'absolute',
-              right: '-120px',
+              right: '-180px',
               top: '30%',
               transform: 'translateY(-50%)',
               display: 'flex',
@@ -473,10 +471,10 @@ export default function HomeHero() {
               textAlign: 'left',
             }}
           >
-            <StatCounter icon="⏰" label="Years Coding" value={8} suffix="" />
-            <StatCounter icon="📊" label="Stack Overflow Rep" value={15.2} suffix="K" />
-            <StatCounter icon="🎯" label="Goals Achieved" value={89} suffix="%" />
-            <StatCounter icon="🌟" label="GitHub Stars" value={1.2} suffix="K" />
+            <StatCounter icon="🎬" label="Tech Influencer Fans" value={1998} suffix="" />
+            <StatCounter icon="🦆" label="Rubber Duck Conversations" value={89} suffix="" />
+            <StatCounter icon="🌙" label="All-nighters Pulled" value={47} suffix="" />
+            <StatCounter icon="🔸" label="Semicolons Forgotten" value={1.1} suffix="K" />
           </m.div>
         </Box>
       </Container>
