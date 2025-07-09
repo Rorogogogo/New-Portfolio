@@ -76,7 +76,8 @@ function StatCounter({ icon, label, value, suffix }: StatCounterProps) {
           mb: 0.5,
         }}
       >
-        {icon} {count}{suffix}
+        {icon} {count}
+        {suffix}
       </Typography>
       <Typography
         variant="body2"
@@ -196,8 +197,10 @@ function GridCell({ row, col, isFlipped, delay }: GridCellProps) {
         transformStyle: 'preserve-3d',
         animation: getAnimation(),
         cursor: waveComplete ? 'pointer' : 'default',
-        transform: waveComplete 
-          ? (isHovered ? 'rotateY(0deg)' : 'rotateY(180deg)')
+        transform: waveComplete
+          ? isHovered
+            ? 'rotateY(0deg)'
+            : 'rotateY(180deg)'
           : 'rotateY(0deg)',
         transition: waveComplete ? 'transform 0.3s ease-in-out' : 'none',
       }}
@@ -256,7 +259,7 @@ export default function HomeHero() {
 
     const animateByCol = (colIndex: number) => {
       setTimeout(() => {
-        setFlippedCells(prev => {
+        setFlippedCells((prev) => {
           const newSet = new Set(prev);
           for (let row = 0; row < 4; row += 1) {
             newSet.add(`${row}-${colIndex}`);
@@ -280,13 +283,7 @@ export default function HomeHero() {
         const delay = 0;
 
         cells.push(
-          <GridCell
-            key={cellId}
-            row={row}
-            col={col}
-            isFlipped={isFlipped}
-            delay={delay}
-          />
+          <GridCell key={cellId} row={row} col={col} isFlipped={isFlipped} delay={delay} />
         );
       }
     }
@@ -338,7 +335,7 @@ export default function HomeHero() {
             }}
           >
             <Logo sx={{ width: 32, height: 32 }} />
-            
+
             <Stack direction="row" spacing={1}>
               <IconButton
                 size="small"
@@ -353,7 +350,7 @@ export default function HomeHero() {
               >
                 <Iconify icon="solar:menu-dots-bold" />
               </IconButton>
-              
+
               <IconButton
                 size="small"
                 sx={{
@@ -386,66 +383,47 @@ export default function HomeHero() {
       >
         <Box
           sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
+            display: 'block',
             width: '100%',
             maxWidth: '1400px',
             px: { xs: 2, md: 4 },
             position: 'relative',
+            height: '100%',
           }}
         >
           {/* Left Stats */}
-          <m.div variants={varFade().inLeft}>
-            <Stack
-              spacing={3}
-              sx={{
-                display: { xs: 'none', lg: 'flex' },
-                alignItems: 'flex-end',
-                position: 'absolute',
-                left: { lg: '-120px', xl: '-150px' },
-                top: '50%',
-                transform: 'translateY(-50%)',
-                textAlign: 'right',
-              }}
-            >
-              <StatCounter
-                icon="☕"
-                label="Cups of Coffee"
-                value={2847}
-                suffix=""
-              />
-              <StatCounter
-                icon="🚀"
-                label="Projects Completed"
-                value={47}
-                suffix=""
-              />
-              <StatCounter
-                icon="💻"
-                label="Lines of Code"
-                value={127}
-                suffix="K"
-              />
-              <StatCounter
-                icon="🐛"
-                label="Bugs Fixed"
-                value={1234}
-                suffix=""
-              />
-            </Stack>
+          <m.div
+            initial={{ opacity: 0, y: 100 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 3 }}
+            style={{
+              position: 'absolute',
+              left: '-120px',
+              top: '30%',
+              transform: 'translateY(-50%)',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '24px',
+              alignItems: 'flex-end',
+              textAlign: 'right',
+            }}
+          >
+            <StatCounter icon="☕" label="Cups of Coffee" value={2847} suffix="" />
+            <StatCounter icon="🚀" label="Projects Completed" value={47} suffix="" />
+            <StatCounter icon="💻" label="Lines of Code" value={127} suffix="K" />
+            <StatCounter icon="🐛" label="Bugs Fixed" value={1234} suffix="" />
           </m.div>
 
           {/* Center Grid */}
           <m.div variants={varFade().inUp}>
             <Box
               sx={{
-                width: { 
-                  xs: 'min(95vw, 85vh * 6/4)', 
-                  sm: 'min(90vw, 80vh * 6/4)', 
-                  md: 'min(85vw, 85vh * 6/4)', 
+                width: {
+                  xs: 'min(95vw, 85vh * 6/4)',
+                  sm: 'min(90vw, 80vh * 6/4)',
+                  md: 'min(85vw, 85vh * 6/4)',
                   lg: 'min(75vw, 85vh * 6/4)',
-                  xl: 'min(70vw, 90vh * 6/4)'
+                  xl: 'min(70vw, 90vh * 6/4)',
                 },
                 aspectRatio: '6/4',
                 position: 'relative',
@@ -479,44 +457,26 @@ export default function HomeHero() {
           </m.div>
 
           {/* Right Stats */}
-          <m.div variants={varFade().inRight}>
-            <Stack
-              spacing={3}
-              sx={{
-                display: { xs: 'none', lg: 'flex' },
-                alignItems: 'flex-start',
-                position: 'absolute',
-                right: { lg: '-120px', xl: '-150px' },
-                top: '50%',
-                transform: 'translateY(-50%)',
-                textAlign: 'left',
-              }}
-            >
-              <StatCounter
-                icon="⏰"
-                label="Years Coding"
-                value={8}
-                suffix=""
-              />
-              <StatCounter
-                icon="📊"
-                label="Stack Overflow Rep"
-                value={15.2}
-                suffix="K"
-              />
-              <StatCounter
-                icon="🎯"
-                label="Goals Achieved"
-                value={89}
-                suffix="%"
-              />
-              <StatCounter
-                icon="🌟"
-                label="GitHub Stars"
-                value={1.2}
-                suffix="K"
-              />
-            </Stack>
+          <m.div
+            initial={{ opacity: 0, y: -100 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 3 }}
+            style={{
+              position: 'absolute',
+              right: '-120px',
+              top: '30%',
+              transform: 'translateY(-50%)',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '24px',
+              alignItems: 'flex-start',
+              textAlign: 'left',
+            }}
+          >
+            <StatCounter icon="⏰" label="Years Coding" value={8} suffix="" />
+            <StatCounter icon="📊" label="Stack Overflow Rep" value={15.2} suffix="K" />
+            <StatCounter icon="🎯" label="Goals Achieved" value={89} suffix="%" />
+            <StatCounter icon="🌟" label="GitHub Stars" value={1.2} suffix="K" />
           </m.div>
         </Box>
       </Container>
