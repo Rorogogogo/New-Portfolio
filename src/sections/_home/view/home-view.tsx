@@ -1,50 +1,68 @@
 'use client';
 
-import { useScroll } from 'framer-motion';
+import Box from '@mui/material/Box';
 
-import { _pricingHome } from 'src/_mock';
-
-import ScrollProgress from 'src/components/scroll-progress';
-
-import Footer from 'src/layouts/main/footer';
+import FixedHeader from 'src/components/fixed-header';
+import { ThemeProvider, useTheme } from 'src/contexts';
 import HomeHero from '../home-hero';
-import HomeFAQs from '../home-faqs';
-import HomeNewStart from '../home-new-start';
-import HomeCombination from '../home-combination';
-import HomeForDesigner from '../home-for-designer';
-import HomeAdvertisement from '../home-advertisement';
-import PricingHome from '../../pricing/home/pricing-home';
-import HomeFeatureHighlights from '../home-feature-highlights';
-import HomeFlexibleComponents from '../home-flexible-components';
+
+function HomeContent() {
+  const { isDarkMode } = useTheme();
+  
+  return (
+    <Box
+      sx={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: isDarkMode ? '#000000' : 'white',
+        overflow: 'hidden',
+        transition: 'background-color 0.5s ease-in-out',
+      }}
+    >
+      {/* Header */}
+      <Box
+        sx={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          height: '80px',
+          backgroundColor: isDarkMode ? '#000000' : 'white',
+          zIndex: 1000,
+          display: 'flex',
+          alignItems: 'center',
+          transition: 'background-color 0.5s ease-in-out',
+        }}
+      >
+        <FixedHeader />
+      </Box>
+      
+      {/* Main content area */}
+      <Box
+        sx={{
+          position: 'absolute',
+          top: '80px',
+          left: '0px',
+          right: '0px',
+          bottom: '0px',
+          overflow: 'hidden',
+        }}
+      >
+        <HomeHero />
+      </Box>
+    </Box>
+  );
+}
 
 // ----------------------------------------------------------------------
 
 export default function HomeView() {
-  const { scrollYProgress } = useScroll();
-
   return (
-    <>
-      <ScrollProgress scrollYProgress={scrollYProgress} />
-
-      <HomeHero />
-
-      <HomeNewStart />
-
-      <HomeFlexibleComponents />
-
-      <HomeFeatureHighlights />
-
-      <HomeForDesigner />
-
-      <PricingHome plans={_pricingHome} />
-
-      <HomeFAQs />
-
-      <HomeCombination />
-
-      <HomeAdvertisement />
-
-      <Footer />
-    </>
+    <ThemeProvider>
+      <HomeContent />
+    </ThemeProvider>
   );
 }

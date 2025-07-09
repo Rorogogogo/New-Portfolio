@@ -3,15 +3,12 @@ import { useState, useEffect, useRef } from 'react';
 import { m } from 'framer-motion';
 
 import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
-import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { alpha, useTheme, keyframes } from '@mui/material/styles';
 
-import Logo from 'src/components/logo';
-import Iconify from 'src/components/iconify';
 import { MotionViewport, varFade } from 'src/components/animate';
+import { useTheme as useCustomTheme } from 'src/contexts';
 
 // ----------------------------------------------------------------------
 
@@ -23,6 +20,7 @@ interface StatCounterProps {
 }
 
 function StatCounter({ icon, label, value, suffix }: StatCounterProps) {
+  const { isDarkMode } = useCustomTheme();
   const [count, setCount] = useState(0);
   const [hasStarted, setHasStarted] = useState(false);
 
@@ -71,9 +69,10 @@ function StatCounter({ icon, label, value, suffix }: StatCounterProps) {
         sx={{
           fontSize: { xs: '1.5rem', md: '2rem' },
           fontWeight: 700,
-          color: 'white',
+          color: isDarkMode ? 'white' : 'black',
           lineHeight: 1,
           mb: 0.5,
+          transition: 'color 0.5s ease-in-out',
         }}
       >
         {icon} {count}
@@ -83,10 +82,17 @@ function StatCounter({ icon, label, value, suffix }: StatCounterProps) {
         variant="body2"
         sx={{
           fontSize: { xs: '0.75rem', md: '0.875rem' },
-          color: alpha('#FFFFFF', 0.7),
+          color: isDarkMode ? alpha('#FFFFFF', 0.7) : alpha('#000000', 0.7),
           fontWeight: 500,
           textTransform: 'uppercase',
           letterSpacing: 1,
+          transition: 'color 0.5s ease-in-out',
+          wordWrap: 'break-word',
+          overflow: 'hidden',
+          display: '-webkit-box',
+          WebkitLineClamp: 2,
+          WebkitBoxOrient: 'vertical',
+          lineHeight: 1.2,
         }}
       >
         {label}
@@ -128,6 +134,15 @@ const reverseFlipAnimation = keyframes`
   }
   100% {
     transform: rotateY(0deg);
+  }
+`;
+
+const carouselAnimation = keyframes`
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(-100%);
   }
 `;
 
@@ -221,6 +236,7 @@ function GridCell({ row, col, isFlipped, delay }: GridCellProps) {
           pointerEvents: 'none',
         }}
       />
+
       {/* Colorful image (back face at 180deg - shows after flip) */}
       <Box
         sx={{
@@ -243,6 +259,7 @@ function GridCell({ row, col, isFlipped, delay }: GridCellProps) {
 
 export default function HomeHero() {
   const theme = useTheme();
+  const { isDarkMode, currentPage } = useCustomTheme();
   const [animationStarted, setAnimationStarted] = useState(false);
   const [flippedCells, setFlippedCells] = useState<Set<string>>(new Set());
 
@@ -290,84 +307,158 @@ export default function HomeHero() {
     return cells;
   };
 
+  const renderPageContent = () => {
+    if (currentPage === 'home') {
+      return (
+        <>
+          {/* All Stats on Right Side - Infinite Marquee */}
+          <Box
+            sx={{
+              position: 'absolute',
+              left: 'calc(50% + 37vw)',
+              top: '0px',
+              height: '100%',
+              width: '300px',
+              overflow: 'hidden',
+              zIndex: 100,
+            }}
+          >
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                textAlign: 'left',
+                animation: 'infiniteScroll 20s linear infinite',
+                '@keyframes infiniteScroll': {
+                  '0%': {
+                    transform: 'translateY(0)',
+                  },
+                  '100%': {
+                    transform: 'translateY(calc(-80px * 8 - 24px * 8))',
+                  },
+                },
+              }}
+            >
+              {/* Original set */}
+              {[
+                { icon: "☕", label: "Consumed Annually", value: 2847, suffix: "" },
+                { icon: "👥", label: "Active Users", value: 769, suffix: "" },
+                { icon: "💻", label: "Lines of Code", value: 450, suffix: "K" },
+                { icon: "💀", label: "Deaths in Elden Ring", value: 258, suffix: "" },
+                { icon: "🎬", label: "Tech Influencer Fans", value: 1998, suffix: "" },
+                { icon: "🦆", label: "Rubber Duck Chats", value: 89, suffix: "" },
+                { icon: "🌙", label: "All-nighters Pulled", value: 47, suffix: "" },
+                { icon: "🔸", label: "Semicolons Forgotten", value: 1.1, suffix: "K" },
+              ].map((stat, index) => (
+                <Box key={`original-${index}`} sx={{ mb: 3, height: '80px' }}>
+                  <StatCounter icon={stat.icon} label={stat.label} value={stat.value} suffix={stat.suffix} />
+                </Box>
+              ))}
+              
+              {/* Duplicate set for seamless loop */}
+              {[
+                { icon: "☕", label: "Consumed Annually", value: 2847, suffix: "" },
+                { icon: "👥", label: "Active Users", value: 769, suffix: "" },
+                { icon: "💻", label: "Lines of Code", value: 450, suffix: "K" },
+                { icon: "💀", label: "Deaths in Elden Ring", value: 258, suffix: "" },
+                { icon: "🎬", label: "Tech Influencer Fans", value: 1998, suffix: "" },
+                { icon: "🦆", label: "Rubber Duck Chats", value: 89, suffix: "" },
+                { icon: "🌙", label: "All-nighters Pulled", value: 47, suffix: "" },
+                { icon: "🔸", label: "Semicolons Forgotten", value: 1.1, suffix: "K" },
+              ].map((stat, index) => (
+                <Box key={`duplicate-${index}`} sx={{ mb: 3, height: '80px' }}>
+                  <StatCounter icon={stat.icon} label={stat.label} value={stat.value} suffix={stat.suffix} />
+                </Box>
+              ))}
+            </Box>
+          </Box>
+        </>
+      );
+    }
+
+    if (currentPage === 'about') {
+      return (
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            textAlign: 'center',
+            color: isDarkMode ? 'white' : 'black',
+          }}
+        >
+          <Typography variant="h3" sx={{ mb: 2 }}>
+            About Me
+          </Typography>
+          <Typography variant="body1">This is the About page content.</Typography>
+        </Box>
+      );
+    }
+
+    if (currentPage === 'projects') {
+      return (
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            textAlign: 'center',
+            color: isDarkMode ? 'white' : 'black',
+          }}
+        >
+          <Typography variant="h3" sx={{ mb: 2 }}>
+            Projects
+          </Typography>
+          <Typography variant="body1">This is the Projects page content.</Typography>
+        </Box>
+      );
+    }
+
+    if (currentPage === 'contact') {
+      return (
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            textAlign: 'center',
+            color: isDarkMode ? 'white' : 'black',
+          }}
+        >
+          <Typography variant="h3" sx={{ mb: 2 }}>
+            Contact
+          </Typography>
+          <Typography variant="body1">This is the Contact page content.</Typography>
+        </Box>
+      );
+    }
+
+    return null;
+  };
+
   return (
     <Box
       component={MotionViewport}
       sx={{
-        height: '100vh',
-        width: '100vw',
-        position: 'relative',
+        height: '100%',
+        width: '100%',
+        position: 'absolute',
+        top: 0,
+        left: 0,
         overflow: 'hidden',
-        backgroundColor: '#000000',
+        backgroundColor: isDarkMode ? '#000000' : '#FFFFFF',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        transition: 'background-color 0.5s ease-in-out',
         p: 0,
         m: 0,
       }}
     >
-      {/* Floating Navigation */}
-      <Box
-        sx={{
-          position: 'fixed',
-          top: { xs: 16, md: 24 },
-          left: { xs: 16, md: 24 },
-          zIndex: 1100,
-        }}
-      >
-        <m.div variants={varFade().inLeft}>
-          <Stack
-            direction="row"
-            spacing={2}
-            sx={{
-              backgroundColor: alpha('#FFFFFF', 0.1),
-              backdropFilter: 'blur(20px)',
-              borderRadius: 3,
-              p: 1.5,
-              border: `1px solid ${alpha('#FFFFFF', 0.15)}`,
-              transition: 'all 0.3s ease-in-out',
-              '&:hover': {
-                backgroundColor: alpha('#FFFFFF', 0.15),
-                borderColor: alpha('#FFFFFF', 0.25),
-                transform: 'translateY(-2px)',
-                boxShadow: `0 8px 32px ${alpha('#000000', 0.3)}`,
-              },
-            }}
-          >
-            <Logo sx={{ width: 32, height: 32 }} />
-
-            <Stack direction="row" spacing={1}>
-              <IconButton
-                size="small"
-                sx={{
-                  color: 'white',
-                  width: 32,
-                  height: 32,
-                  '&:hover': {
-                    backgroundColor: alpha('#FFFFFF', 0.1),
-                  },
-                }}
-              >
-                <Iconify icon="solar:menu-dots-bold" />
-              </IconButton>
-
-              <IconButton
-                size="small"
-                sx={{
-                  color: 'white',
-                  width: 32,
-                  height: 32,
-                  '&:hover': {
-                    backgroundColor: alpha('#FFFFFF', 0.1),
-                  },
-                }}
-              >
-                <Iconify icon="solar:settings-linear" />
-              </IconButton>
-            </Stack>
-          </Stack>
-        </m.div>
-      </Box>
       <Container
         maxWidth={false}
         disableGutters
@@ -393,29 +484,6 @@ export default function HomeHero() {
             height: '100%',
           }}
         >
-          {/* Left Stats */}
-          <m.div
-            initial={{ opacity: 0, y: 100 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 3 }}
-            style={{
-              position: 'absolute',
-              left: '-180px',
-              top: '30%',
-              transform: 'translateY(-50%)',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '24px',
-              alignItems: 'flex-end',
-              textAlign: 'right',
-            }}
-          >
-            <StatCounter icon="☕" label="Coffee Consumed Annually" value={2847} suffix="" />
-            <StatCounter icon="👥" label="Active Users" value={769} suffix="" />
-            <StatCounter icon="💻" label="Lines of Code" value={450} suffix="K" />
-            <StatCounter icon="💀" label="Deaths in Elden Ring" value={258} suffix="" />
-          </m.div>
-
           {/* Center Grid */}
           <m.div variants={varFade().inUp}>
             <Box
@@ -435,47 +503,19 @@ export default function HomeHero() {
                 gridTemplateRows: 'repeat(4, 1fr)',
                 gap: 0.5,
                 borderRadius: { xs: 2, md: 3, lg: 4 },
-                border: `1px solid ${alpha(theme.palette.grey[300], 0.2)}`,
-                backgroundColor: alpha(theme.palette.background.paper, 0.02),
-                backdropFilter: 'blur(10px)',
+                border: `1px solid #000000`,
+                backgroundColor: '#000000',
                 transition: 'all 0.3s ease-in-out',
                 mx: 'auto',
                 boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
-                '&:hover': {
-                  backgroundColor: alpha(theme.palette.background.paper, 0.05),
-                  borderColor: alpha(theme.palette.grey[400], 0.3),
-                  boxShadow: '0 16px 64px rgba(0, 0, 0, 0.4)',
-                  transform: 'translateY(-4px)',
-                },
               }}
             >
               {renderGrid()}
             </Box>
           </m.div>
 
-
-          {/* Right Stats */}
-          <m.div
-            initial={{ opacity: 0, y: -100 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 3 }}
-            style={{
-              position: 'absolute',
-              right: '-180px',
-              top: '30%',
-              transform: 'translateY(-50%)',
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '24px',
-              alignItems: 'flex-start',
-              textAlign: 'left',
-            }}
-          >
-            <StatCounter icon="🎬" label="Tech Influencer Fans" value={1998} suffix="" />
-            <StatCounter icon="🦆" label="Rubber Duck Conversations" value={89} suffix="" />
-            <StatCounter icon="🌙" label="All-nighters Pulled" value={47} suffix="" />
-            <StatCounter icon="🔸" label="Semicolons Forgotten" value={1.1} suffix="K" />
-          </m.div>
+          {/* Page Content */}
+          {renderPageContent()}
         </Box>
       </Container>
     </Box>
