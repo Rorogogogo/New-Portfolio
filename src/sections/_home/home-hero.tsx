@@ -9,6 +9,7 @@ import { alpha, useTheme, keyframes } from '@mui/material/styles';
 
 import { MotionViewport, varFade } from 'src/components/animate';
 import { useTheme as useCustomTheme } from 'src/contexts';
+import { Globe } from 'src/components/globe';
 
 // ----------------------------------------------------------------------
 
@@ -311,6 +312,42 @@ export default function HomeHero() {
     if (currentPage === 'home') {
       return (
         <>
+          {/* Globe on Left Side */}
+          <Box
+            sx={{
+              position: 'absolute',
+              right: 'calc(50% + 36vw)',
+              top: '50%',
+              transform: 'translateY(-50%)',
+              width: '250px',
+              height: '300px',
+              zIndex: 100,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+            <Box sx={{ width: '250px', height: '250px' }}>
+              <Globe />
+            </Box>
+            <Box sx={{ mt: 2, textAlign: 'center' }}>
+              <Typography
+                variant="body2"
+                sx={{
+                  fontSize: '0.875rem',
+                  color: isDarkMode ? alpha('#FFFFFF', 0.8) : alpha('#000000', 0.8),
+                  fontWeight: 500,
+                  lineHeight: 1.4,
+                  transition: 'color 0.5s ease-in-out',
+                }}
+              >
+                Located in Sydney
+                <br />
+                Born and raised in Zhengzhou
+              </Typography>
+            </Box>
+          </Box>
+
           {/* All Stats on Right Side - Infinite Marquee */}
           <Box
             sx={{
@@ -342,33 +379,43 @@ export default function HomeHero() {
             >
               {/* Original set */}
               {[
-                { icon: "☕", label: "Consumed Annually", value: 2847, suffix: "" },
-                { icon: "👥", label: "Active Users", value: 769, suffix: "" },
-                { icon: "💻", label: "Lines of Code", value: 450, suffix: "K" },
-                { icon: "💀", label: "Deaths in Elden Ring", value: 258, suffix: "" },
-                { icon: "🎬", label: "Tech Influencer Fans", value: 1998, suffix: "" },
-                { icon: "🦆", label: "Rubber Duck Chats", value: 89, suffix: "" },
-                { icon: "🌙", label: "All-nighters Pulled", value: 47, suffix: "" },
-                { icon: "🔸", label: "Semicolons Forgotten", value: 1.1, suffix: "K" },
+                { icon: '☕', label: 'Consumed Annually', value: 2847, suffix: '' },
+                { icon: '👥', label: 'Active Users', value: 769, suffix: '' },
+                { icon: '💻', label: 'Lines of Code', value: 450, suffix: 'K' },
+                { icon: '💀', label: 'Deaths in Elden Ring', value: 258, suffix: '' },
+                { icon: '🎬', label: 'Tech Influencer Fans', value: 1998, suffix: '' },
+                { icon: '🦆', label: 'Rubber Duck Chats', value: 89, suffix: '' },
+                { icon: '🌙', label: 'All-nighters Pulled', value: 47, suffix: '' },
+                { icon: '🔸', label: 'Semicolons Forgotten', value: 1156, suffix: '' },
               ].map((stat, index) => (
                 <Box key={`original-${index}`} sx={{ mb: 3, height: '80px' }}>
-                  <StatCounter icon={stat.icon} label={stat.label} value={stat.value} suffix={stat.suffix} />
+                  <StatCounter
+                    icon={stat.icon}
+                    label={stat.label}
+                    value={stat.value}
+                    suffix={stat.suffix}
+                  />
                 </Box>
               ))}
-              
+
               {/* Duplicate set for seamless loop */}
               {[
-                { icon: "☕", label: "Consumed Annually", value: 2847, suffix: "" },
-                { icon: "👥", label: "Active Users", value: 769, suffix: "" },
-                { icon: "💻", label: "Lines of Code", value: 450, suffix: "K" },
-                { icon: "💀", label: "Deaths in Elden Ring", value: 258, suffix: "" },
-                { icon: "🎬", label: "Tech Influencer Fans", value: 1998, suffix: "" },
-                { icon: "🦆", label: "Rubber Duck Chats", value: 89, suffix: "" },
-                { icon: "🌙", label: "All-nighters Pulled", value: 47, suffix: "" },
-                { icon: "🔸", label: "Semicolons Forgotten", value: 1.1, suffix: "K" },
+                { icon: '☕', label: 'Consumed Annually', value: 2847, suffix: '' },
+                { icon: '👥', label: 'Active Users', value: 769, suffix: '' },
+                { icon: '💻', label: 'Lines of Code', value: 450, suffix: 'K' },
+                { icon: '💀', label: 'Deaths in Elden Ring', value: 258, suffix: '' },
+                { icon: '🎬', label: 'Tech Influencer Fans', value: 1998, suffix: '' },
+                { icon: '🦆', label: 'Rubber Duck Chats', value: 89, suffix: '' },
+                { icon: '🌙', label: 'All-nighters Pulled', value: 47, suffix: '' },
+                { icon: '🔸', label: 'Semicolons Forgotten', value: 1156, suffix: '' },
               ].map((stat, index) => (
                 <Box key={`duplicate-${index}`} sx={{ mb: 3, height: '80px' }}>
-                  <StatCounter icon={stat.icon} label={stat.label} value={stat.value} suffix={stat.suffix} />
+                  <StatCounter
+                    icon={stat.icon}
+                    label={stat.label}
+                    value={stat.value}
+                    suffix={stat.suffix}
+                  />
                 </Box>
               ))}
             </Box>
