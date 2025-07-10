@@ -312,38 +312,111 @@ export default function HomeHero() {
     if (currentPage === 'home') {
       return (
         <>
-          {/* Globe on Left Side */}
+          {/* Quick Info Card on Left Side */}
           <Box
             sx={{
               position: 'absolute',
-              right: 'calc(50% + 36vw)',
+              left: { md: '2%', lg: '5%', xl: '8%' },
               top: '50%',
               transform: 'translateY(-50%)',
-              width: '250px',
-              height: '300px',
+              width: { md: '260px', lg: '280px', xl: '300px' },
+              height: 'auto',
               zIndex: 100,
-              display: 'flex',
+              display: { xs: 'none', md: 'flex' },
               flexDirection: 'column',
-              alignItems: 'center',
+              alignItems: 'flex-start',
+              p: 3,
+              borderRadius: 2,
+              backgroundColor: isDarkMode ? alpha('#FFFFFF', 0.05) : alpha('#000000', 0.03),
+              border: `1px solid ${isDarkMode ? alpha('#FFFFFF', 0.1) : alpha('#000000', 0.1)}`,
+              backdropFilter: 'blur(10px)',
+              transition: 'all 0.3s ease-in-out',
+              '&:hover': {
+                backgroundColor: isDarkMode ? alpha('#FFFFFF', 0.08) : alpha('#000000', 0.05),
+                transform: 'translateY(-50%) translateX(5px)',
+                boxShadow: isDarkMode 
+                  ? '0 10px 30px rgba(255, 255, 255, 0.1)' 
+                  : '0 10px 30px rgba(0, 0, 0, 0.15)',
+              },
             }}
           >
-            <Box sx={{ width: '250px', height: '250px' }}>
-              <Globe />
-            </Box>
-            <Box sx={{ mt: 2, textAlign: 'center' }}>
+            {/* Email */}
+            <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+              <Typography sx={{ fontSize: '1.2rem', mr: 1.5 }}>📧</Typography>
               <Typography
                 variant="body2"
                 sx={{
-                  fontSize: '0.875rem',
-                  color: isDarkMode ? alpha('#FFFFFF', 0.8) : alpha('#000000', 0.8),
+                  fontSize: '0.9rem',
+                  color: isDarkMode ? alpha('#FFFFFF', 0.9) : alpha('#000000', 0.9),
                   fontWeight: 500,
-                  lineHeight: 1.4,
                   transition: 'color 0.5s ease-in-out',
                 }}
               >
-                Located in Sydney
-                <br />
-                Born and raised in Zhengzhou
+                robert@example.com
+              </Typography>
+            </Box>
+
+            {/* Location */}
+            <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+              <Typography sx={{ fontSize: '1.2rem', mr: 1.5 }}>📍</Typography>
+              <Typography
+                variant="body2"
+                sx={{
+                  fontSize: '0.9rem',
+                  color: isDarkMode ? alpha('#FFFFFF', 0.9) : alpha('#000000', 0.9),
+                  fontWeight: 500,
+                  transition: 'color 0.5s ease-in-out',
+                }}
+              >
+                Sydney, Australia
+              </Typography>
+            </Box>
+
+            {/* Role */}
+            <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+              <Typography sx={{ fontSize: '1.2rem', mr: 1.5 }}>💼</Typography>
+              <Typography
+                variant="body2"
+                sx={{
+                  fontSize: '0.9rem',
+                  color: isDarkMode ? alpha('#FFFFFF', 0.9) : alpha('#000000', 0.9),
+                  fontWeight: 500,
+                  transition: 'color 0.5s ease-in-out',
+                }}
+              >
+                Full Stack Developer
+              </Typography>
+            </Box>
+
+            {/* Education */}
+            <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+              <Typography sx={{ fontSize: '1.2rem', mr: 1.5 }}>🎓</Typography>
+              <Typography
+                variant="body2"
+                sx={{
+                  fontSize: '0.9rem',
+                  color: isDarkMode ? alpha('#FFFFFF', 0.9) : alpha('#000000', 0.9),
+                  fontWeight: 500,
+                  transition: 'color 0.5s ease-in-out',
+                }}
+              >
+                Computer Science
+              </Typography>
+            </Box>
+
+            {/* Status */}
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Typography sx={{ fontSize: '1.2rem', mr: 1.5 }}>🟢</Typography>
+              <Typography
+                variant="body2"
+                sx={{
+                  fontSize: '0.9rem',
+                  color: isDarkMode ? alpha('#FFFFFF', 0.9) : alpha('#000000', 0.9),
+                  fontWeight: 500,
+                  transition: 'color 0.5s ease-in-out',
+                }}
+              >
+                Available for work
               </Typography>
             </Box>
           </Box>
@@ -352,12 +425,13 @@ export default function HomeHero() {
           <Box
             sx={{
               position: 'absolute',
-              left: 'calc(50% + 37vw)',
+              right: { md: '2%', lg: '5%', xl: '8%' },
               top: '0px',
               height: '100%',
-              width: '300px',
+              width: { md: '250px', lg: '280px', xl: '300px' },
               overflow: 'hidden',
               zIndex: 100,
+              display: { xs: 'none', md: 'block' },
             }}
           >
             <Box
