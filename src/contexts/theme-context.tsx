@@ -12,7 +12,7 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [isDarkMode, setIsDarkMode] = useState(false); // Default to bright mode
+  const [isDarkMode, setIsDarkMode] = useState(true); // Default to dark mode
   const [currentPage, setCurrentPage] = useState('home');
 
   const toggleTheme = () => {

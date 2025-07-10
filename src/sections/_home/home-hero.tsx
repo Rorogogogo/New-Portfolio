@@ -20,6 +20,55 @@ interface StatCounterProps {
   suffix: string;
 }
 
+function AnimatedText({ text, delay = 0 }: { text: string; delay?: number }) {
+  const [displayText, setDisplayText] = useState('*'.repeat(text.length));
+  const [hasStarted, setHasStarted] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setHasStarted(true);
+    }, 1000 + delay); // Start after 1 second + delay
+
+    return () => clearTimeout(timer);
+  }, [delay]);
+
+  useEffect(() => {
+    if (!hasStarted) return;
+
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@.-+/';
+    const finalText = text;
+    const duration = 2000; // 2 seconds to match number animation exactly
+    const steps = 60; // 60 FPS
+    let currentStep = 0;
+
+    const interval = setInterval(() => {
+      let newText = '';
+      // Use exponential curve to make text reveal feel like number counting
+      const progress = Math.pow(currentStep / steps, 1.5); // Slower start, faster end
+      const revealedChars = Math.floor(progress * finalText.length);
+      
+      for (let i = 0; i < finalText.length; i++) {
+        if (i < revealedChars) {
+          newText += finalText[i];
+        } else {
+          newText += chars[Math.floor(Math.random() * chars.length)];
+        }
+      }
+      setDisplayText(newText);
+      
+      currentStep++;
+      if (currentStep >= steps) {
+        setDisplayText(finalText);
+        clearInterval(interval);
+      }
+    }, duration / steps);
+
+    return () => clearInterval(interval);
+  }, [hasStarted, text]);
+
+  return displayText;
+}
+
 function StatCounter({ icon, label, value, suffix }: StatCounterProps) {
   const { isDarkMode } = useCustomTheme();
   const [count, setCount] = useState(0);
@@ -28,13 +77,13 @@ function StatCounter({ icon, label, value, suffix }: StatCounterProps) {
   useEffect(() => {
     const timer = setTimeout(() => {
       setHasStarted(true);
-    }, 2000); // Start counting after 2 seconds
+    }, 1000); // Start counting after 1 second
 
     return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
-    if (!hasStarted) return;
+    if (!hasStarted || value === 0) return;
 
     const duration = 2000; // 2 seconds animation
     const steps = 60; // 60 FPS
@@ -74,10 +123,10 @@ function StatCounter({ icon, label, value, suffix }: StatCounterProps) {
           lineHeight: 1,
           mb: 0.5,
           transition: 'color 0.5s ease-in-out',
+          fontFamily: 'monospace',
         }}
       >
-        {icon} {count}
-        {suffix}
+        {icon} {value === 0 ? <AnimatedText text={suffix} /> : `${count}${suffix}`}
       </Typography>
       <Typography
         variant="body2"
@@ -312,112 +361,84 @@ export default function HomeHero() {
     if (currentPage === 'home') {
       return (
         <>
-          {/* Left Sidebar */}
+          {/* Left Sidebar - Skills */}
           <Box
             sx={{
               position: 'absolute',
               left: { lg: 30, xl: 50 },
-              top: '50%',
-              transform: 'translateY(-50%)',
+              top: '0px',
+              height: '100%',
               width: { md: '250px', lg: '250px' },
-              height: 'auto',
+              overflow: 'hidden',
               zIndex: 100,
-              display: { xs: 'none', lg: 'flex' },
-              flexDirection: 'column',
-              alignItems: 'flex-start',
-              p: 3,
-              borderRadius: 2,
-              backgroundColor: isDarkMode ? alpha('#FFFFFF', 0.05) : alpha('#000000', 0.03),
-              border: `1px solid ${isDarkMode ? alpha('#FFFFFF', 0.1) : alpha('#000000', 0.1)}`,
-              backdropFilter: 'blur(10px)',
-              transition: 'all 0.3s ease-in-out',
-              '&:hover': {
-                backgroundColor: isDarkMode ? alpha('#FFFFFF', 0.08) : alpha('#000000', 0.05),
-                transform: 'translateY(-50%) translateX(5px)',
-                boxShadow: isDarkMode 
-                  ? '0 10px 30px rgba(255, 255, 255, 0.1)' 
-                  : '0 10px 30px rgba(0, 0, 0, 0.15)',
-              },
+              display: { xs: 'none', lg: 'block' },
             }}
           >
-            {/* Email */}
-            <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-              <Typography sx={{ fontSize: '1.2rem', mr: 1.5 }}>📧</Typography>
-              <Typography
-                variant="body2"
-                sx={{
-                  fontSize: '0.9rem',
-                  color: isDarkMode ? alpha('#FFFFFF', 0.9) : alpha('#000000', 0.9),
-                  fontWeight: 500,
-                  transition: 'color 0.5s ease-in-out',
-                }}
-              >
-                robert@example.com
-              </Typography>
-            </Box>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-end',
+                textAlign: 'right',
+                animation: 'infiniteScrollDown 22s linear infinite',
+                '&:hover': {
+                  animationPlayState: 'paused',
+                },
+                '@keyframes infiniteScrollDown': {
+                  '0%': {
+                    transform: 'translateY(calc(-80px * 10 - 24px * 10))',
+                  },
+                  '100%': {
+                    transform: 'translateY(0)',
+                  },
+                },
+              }}
+            >
+              {/* Original set */}
+              {[
+                { icon: '📧', label: 'xwang.robert@gmail.com', value: 0, suffix: 'EMAIL' },
+                { icon: '📱', label: '+61 416784179', value: 0, suffix: 'PHONE' },
+                { icon: '📍', label: 'Sydney, Australia', value: 0, suffix: 'LOCATION' },
+                { icon: '💼', label: 'Full Stack Developer', value: 0, suffix: 'ROLE' },
+                { icon: '🎓', label: 'Master Computer Science', value: 0, suffix: 'EDUCATION' },
+                { icon: '🏢', label: 'DDT Holdings', value: 0, suffix: 'COMPANY' },
+                { icon: '🚀', label: 'jobjourney.me', value: 0, suffix: 'PROJECT 1' },
+                { icon: '🛡️', label: 'standtogether.club', value: 0, suffix: 'PROJECT 2' },
+                { icon: '🌟', label: 'Available for work', value: 0, suffix: 'STATUS' },
+                { icon: '⏰', label: 'GMT+10', value: 0, suffix: 'TIMEZONE' },
+              ].map((stat, index) => (
+                <Box key={`original-${index}`} sx={{ mb: 3, height: '80px' }}>
+                  <StatCounter
+                    icon={stat.icon}
+                    label={stat.label}
+                    value={stat.value}
+                    suffix={stat.suffix}
+                  />
+                </Box>
+              ))}
 
-            {/* Location */}
-            <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-              <Typography sx={{ fontSize: '1.2rem', mr: 1.5 }}>📍</Typography>
-              <Typography
-                variant="body2"
-                sx={{
-                  fontSize: '0.9rem',
-                  color: isDarkMode ? alpha('#FFFFFF', 0.9) : alpha('#000000', 0.9),
-                  fontWeight: 500,
-                  transition: 'color 0.5s ease-in-out',
-                }}
-              >
-                Sydney, Australia
-              </Typography>
-            </Box>
-
-            {/* Role */}
-            <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-              <Typography sx={{ fontSize: '1.2rem', mr: 1.5 }}>💼</Typography>
-              <Typography
-                variant="body2"
-                sx={{
-                  fontSize: '0.9rem',
-                  color: isDarkMode ? alpha('#FFFFFF', 0.9) : alpha('#000000', 0.9),
-                  fontWeight: 500,
-                  transition: 'color 0.5s ease-in-out',
-                }}
-              >
-                Full Stack Developer
-              </Typography>
-            </Box>
-
-            {/* Education */}
-            <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-              <Typography sx={{ fontSize: '1.2rem', mr: 1.5 }}>🎓</Typography>
-              <Typography
-                variant="body2"
-                sx={{
-                  fontSize: '0.9rem',
-                  color: isDarkMode ? alpha('#FFFFFF', 0.9) : alpha('#000000', 0.9),
-                  fontWeight: 500,
-                  transition: 'color 0.5s ease-in-out',
-                }}
-              >
-                Computer Science
-              </Typography>
-            </Box>
-
-            {/* Status */}
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <Typography sx={{ fontSize: '1.2rem', mr: 1.5 }}>🟢</Typography>
-              <Typography
-                variant="body2"
-                sx={{
-                  fontSize: '0.9rem',
-                  color: isDarkMode ? alpha('#FFFFFF', 0.9) : alpha('#000000', 0.9),
-                  fontWeight: 500,
-                  transition: 'color 0.5s ease-in-out',
-                }}
-              >
-                Available for work
-              </Typography>
+              {/* Duplicate set for seamless loop */}
+              {[
+                { icon: '📧', label: 'xwang.robert@gmail.com', value: 0, suffix: 'EMAIL' },
+                { icon: '📱', label: '+61 416784179', value: 0, suffix: 'PHONE' },
+                { icon: '📍', label: 'Sydney, Australia', value: 0, suffix: 'LOCATION' },
+                { icon: '💼', label: 'Full Stack Developer', value: 0, suffix: 'ROLE' },
+                { icon: '🎓', label: 'Master Computer Science', value: 0, suffix: 'EDUCATION' },
+                { icon: '🏢', label: 'DDT Holdings', value: 0, suffix: 'COMPANY' },
+                { icon: '🚀', label: 'jobjourney.me', value: 0, suffix: 'PROJECT 1' },
+                { icon: '🛡️', label: 'standtogether.club', value: 0, suffix: 'PROJECT 2' },
+                { icon: '🌟', label: 'Available for work', value: 0, suffix: 'STATUS' },
+                { icon: '⏰', label: 'GMT+10', value: 0, suffix: 'TIMEZONE' },
+              ].map((stat, index) => (
+                <Box key={`duplicate-${index}`} sx={{ mb: 3, height: '80px' }}>
+                  <StatCounter
+                    icon={stat.icon}
+                    label={stat.label}
+                    value={stat.value}
+                    suffix={stat.suffix}
+                  />
+                </Box>
+              ))}
             </Box>
           </Box>
 
@@ -473,6 +494,9 @@ export default function HomeHero() {
                 alignItems: 'flex-start',
                 textAlign: 'left',
                 animation: 'infiniteScroll 20s linear infinite',
+                '&:hover': {
+                  animationPlayState: 'paused',
+                },
                 '@keyframes infiniteScroll': {
                   '0%': {
                     transform: 'translateY(0)',
