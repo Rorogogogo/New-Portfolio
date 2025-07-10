@@ -312,17 +312,17 @@ export default function HomeHero() {
     if (currentPage === 'home') {
       return (
         <>
-          {/* Quick Info Card on Left Side */}
+          {/* Left Sidebar */}
           <Box
             sx={{
               position: 'absolute',
-              left: { md: '2%', lg: '5%', xl: '8%' },
+              left: { lg: 30, xl: 50 },
               top: '50%',
               transform: 'translateY(-50%)',
-              width: { md: '260px', lg: '280px', xl: '300px' },
+              width: { md: '250px', lg: '250px' },
               height: 'auto',
               zIndex: 100,
-              display: { xs: 'none', md: 'flex' },
+              display: { xs: 'none', lg: 'flex' },
               flexDirection: 'column',
               alignItems: 'flex-start',
               p: 3,
@@ -421,17 +421,49 @@ export default function HomeHero() {
             </Box>
           </Box>
 
-          {/* All Stats on Right Side - Infinite Marquee */}
+          {/* Main Grid Content */}
           <Box
             sx={{
               position: 'absolute',
-              right: { md: '2%', lg: '5%', xl: '8%' },
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              display: 'grid',
+              gridTemplateColumns: 'repeat(6, 1fr)',
+              gridTemplateRows: 'repeat(4, 1fr)',
+              gap: 0.5,
+              width: {
+                xs: 'min(95vw, 85vh * 6/4)',
+                sm: 'min(90vw, 80vh * 6/4)',
+                md: 'min(85vw, 85vh * 6/4)',
+                lg: 'min(calc(100vw - 620px), 70vh * 6/4)',
+                xl: 'min(calc(100vw - 680px), 75vh * 6/4)',
+              },
+              aspectRatio: '6/4',
+              borderRadius: { xs: 2, md: 3, lg: 4 },
+              overflow: 'hidden',
+              zIndex: 50,
+              border: '1px solid #000000',
+              backgroundColor: '#000000',
+              boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
+              mx: 'auto',
+              transition: 'all 0.3s ease-in-out',
+            }}
+          >
+            {renderGrid()}
+          </Box>
+
+          {/* Right Sidebar - Stats */}
+          <Box
+            sx={{
+              position: 'absolute',
+              right: { lg: 30, xl: 50 },
               top: '0px',
               height: '100%',
-              width: { md: '250px', lg: '280px', xl: '300px' },
+              width: { md: '250px', lg: '250px' },
               overflow: 'hidden',
               zIndex: 100,
-              display: { xs: 'none', md: 'block' },
+              display: { xs: 'none', lg: 'block' },
             }}
           >
             <Box
@@ -565,8 +597,8 @@ export default function HomeHero() {
     <Box
       component={MotionViewport}
       sx={{
-        height: '100%',
-        width: '100%',
+        height: '100vh',
+        width: '100vw',
         position: 'absolute',
         top: 0,
         left: 0,
@@ -591,51 +623,19 @@ export default function HomeHero() {
           justifyContent: 'center',
           p: 0,
           m: 0,
+          overflow: 'hidden',
         }}
       >
         <Box
           sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
             width: '100%',
-            maxWidth: '1400px',
-            px: { xs: 2, md: 4 },
-            position: 'relative',
             height: '100%',
+            position: 'relative',
+            maxWidth: '100vw',
+            mx: 'auto',
+            overflow: 'hidden',
           }}
         >
-          {/* Center Grid */}
-          <m.div variants={varFade().inUp}>
-            <Box
-              sx={{
-                width: {
-                  xs: 'min(95vw, 85vh * 6/4)',
-                  sm: 'min(90vw, 80vh * 6/4)',
-                  md: 'min(85vw, 85vh * 6/4)',
-                  lg: 'min(75vw, 85vh * 6/4)',
-                  xl: 'min(70vw, 90vh * 6/4)',
-                },
-                aspectRatio: '6/4',
-                position: 'relative',
-                overflow: 'hidden',
-                display: 'grid',
-                gridTemplateColumns: 'repeat(6, 1fr)',
-                gridTemplateRows: 'repeat(4, 1fr)',
-                gap: 0.5,
-                borderRadius: { xs: 2, md: 3, lg: 4 },
-                border: `1px solid #000000`,
-                backgroundColor: '#000000',
-                transition: 'all 0.3s ease-in-out',
-                mx: 'auto',
-                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.3)',
-              }}
-            >
-              {renderGrid()}
-            </Box>
-          </m.div>
-
-          {/* Page Content */}
           {renderPageContent()}
         </Box>
       </Container>
