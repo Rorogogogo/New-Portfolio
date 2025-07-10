@@ -1,5 +1,5 @@
 module.exports = {
-  trailingSlash: true,
+  trailingSlash: false,
   output: 'export',
   distDir: 'out',
   eslint: {

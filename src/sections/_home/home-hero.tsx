@@ -436,8 +436,8 @@ export default function HomeHero() {
                 xs: 'min(95vw, 85vh * 6/4)',
                 sm: 'min(90vw, 80vh * 6/4)',
                 md: 'min(85vw, 85vh * 6/4)',
-                lg: 'min(calc(100vw - 620px), 70vh * 6/4)',
-                xl: 'min(calc(100vw - 680px), 75vh * 6/4)',
+                lg: 'min(calc(100vw - 620px), 80vh * 6/4)',
+                xl: 'min(calc(100vw - 680px), 85vh * 6/4)',
               },
               aspectRatio: '6/4',
               borderRadius: { xs: 2, md: 3, lg: 4 },
@@ -599,7 +599,7 @@ export default function HomeHero() {
       sx={{
         height: '100vh',
         width: '100vw',
-        position: 'absolute',
+        position: 'fixed',
         top: 0,
         left: 0,
         overflow: 'hidden',
@@ -610,6 +610,7 @@ export default function HomeHero() {
         transition: 'background-color 0.5s ease-in-out',
         p: 0,
         m: 0,
+        pt: '80px',
       }}
     >
       <Container
