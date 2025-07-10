@@ -3,14 +3,15 @@ import { useState } from 'react';
 import { m } from 'framer-motion';
 
 import Box from '@mui/material/Box';
-import Stack from '@mui/material/Stack';
 import IconButton from '@mui/material/IconButton';
+import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { alpha } from '@mui/material/styles';
 
 import { varFade } from 'src/components/animate';
 import Iconify from 'src/components/iconify';
 import VideoText from 'src/components/video-text';
+
 import { useTheme as useCustomTheme } from 'src/contexts';
 
 export default function FixedHeader() {
@@ -29,6 +30,11 @@ export default function FixedHeader() {
     if (sectionId === 'robert') return; // Robert is just a label, not clickable
     setActiveSection(sectionId);
     setCurrentPage(sectionId);
+  };
+
+  const getFontWeight = (itemId: string) => {
+    if (itemId === 'robert') return 700;
+    return activeSection === itemId ? 600 : 400;
   };
 
   return (
@@ -53,36 +59,40 @@ export default function FixedHeader() {
             width: '100%',
           }}
         >
-          {navItems.map((item) => (
-            item.id === 'robert' ? (
-              <Box
-                key={item.id}
-                sx={{
-                  position: 'relative',
-                  height: '40px',
-                  minWidth: '160px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'flex-start',
-                  marginLeft: '-20px', // Move more to the left
-                }}
-              >
-                <VideoText
-                  videoSrc="https://assets.mixkit.co/videos/preview/mixkit-set-of-plateaus-seen-from-the-heights-in-a-sunset-26070-large.mp4"
-                  fontSize="28px"
-                  fontWeight="bold"
+          {navItems.map((item) => {
+            if (item.id === 'robert') {
+              return (
+                <Box
+                  key={item.id}
+                  sx={{
+                    position: 'relative',
+                    height: '40px',
+                    minWidth: '160px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'flex-start',
+                    marginLeft: '-20px', // Move more to the left
+                  }}
                 >
-                  {item.label}
-                </VideoText>
-              </Box>
-            ) : (
+                  <VideoText
+                    videoSrc="https://assets.mixkit.co/videos/preview/mixkit-set-of-plateaus-seen-from-the-heights-in-a-sunset-26070-large.mp4"
+                    fontSize="28px"
+                    fontWeight="bold"
+                  >
+                    {item.label}
+                  </VideoText>
+                </Box>
+              );
+            }
+
+            return (
               <Typography
                 key={item.id}
                 variant="body1"
                 onClick={() => handleNavClick(item.id)}
                 sx={{
                   color: isDarkMode ? 'white' : 'black',
-                  fontWeight: item.id === 'robert' ? 700 : (activeSection === item.id ? 600 : 400),
+                  fontWeight: getFontWeight(item.id),
                   cursor: item.id === 'robert' ? 'default' : 'pointer',
                   position: 'relative',
                   transition: 'all 0.5s ease-in-out',
@@ -104,9 +114,9 @@ export default function FixedHeader() {
               >
                 {item.label}
               </Typography>
-            )
-          ))}
-          
+            );
+          })}
+
           <IconButton
             onClick={toggleTheme}
             sx={{

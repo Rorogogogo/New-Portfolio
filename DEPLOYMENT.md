@@ -50,11 +50,11 @@ In your GitHub repository, go to Settings → Secrets and variables → Actions,
 
 ### 3. Update Configuration Files
 
-1. **Update `.github/workflows/deploy-main.yml`**:
+1. **Update `.github/workflows/deploy-main.yml`** (Already configured!):
 
-   - Replace `your-firebase-project-id` with your actual Firebase project ID
-   - Replace `your-portfolio-domain.firebaseapp.com` with your actual hosting URL
-   - Add any environment variables your app needs
+   - ✅ Project ID: `robert-potfolio`
+   - ✅ Hosting URL: `https://robert-potfolio.web.app`
+   - Add any environment variables your app needs if required
 
 2. **Verify `firebase.json`**:
    - The configuration is set up for Next.js static export

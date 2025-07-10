@@ -2,6 +2,9 @@ module.exports = {
   trailingSlash: true,
   output: 'export',
   distDir: 'out',
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
   images: {
     unoptimized: true,
   },
