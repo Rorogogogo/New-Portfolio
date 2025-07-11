@@ -10,6 +10,7 @@ import { LocalizationProvider } from 'src/locales';
 import ProgressBar from 'src/components/progress-bar';
 import { MotionLazy } from 'src/components/animate/motion-lazy';
 import { SettingsDrawer, SettingsProvider } from 'src/components/settings';
+import CursorMultifollow from 'src/components/cursor-multifollow';
 
 // ----------------------------------------------------------------------
 
@@ -54,6 +55,7 @@ export default function RootLayout({ children }: Props) {
               <MotionLazy>
                 <ProgressBar />
                 <SettingsDrawer />
+                <CursorMultifollow />
                 {children}
               </MotionLazy>
             </ThemeProvider>
