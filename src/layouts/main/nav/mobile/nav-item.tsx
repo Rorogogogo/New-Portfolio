@@ -8,6 +8,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import { RouterLink } from 'src/routes/components';
 
 import Iconify from 'src/components/iconify';
+import TextReveal from 'src/components/text-reveal';
 
 import { NavItemProps, NavItemStateProps } from '../types';
 
@@ -17,17 +18,19 @@ const NavItem = forwardRef<HTMLDivElement, NavItemProps>(
   ({ title, path, open, active, hasChild, externalLink, ...other }, ref) => {
     const renderContent = (
       <StyledNavItem ref={ref} active={active} {...other}>
-        <Box component="span" sx={{ flexGrow: 1 }}>
-          {title}
-        </Box>
+        <TextReveal style={{ flexGrow: 1 }}>
+          <Box component="span" sx={{ flexGrow: 1 }}>
+            {title}
+          </Box>
 
-        {hasChild && (
-          <Iconify
-            width={16}
-            icon={open ? 'carbon:chevron-down' : 'carbon:chevron-right'}
-            sx={{ ml: 0.75 }}
-          />
-        )}
+          {hasChild && (
+            <Iconify
+              width={16}
+              icon={open ? 'carbon:chevron-down' : 'carbon:chevron-right'}
+              sx={{ ml: 0.75 }}
+            />
+          )}
+        </TextReveal>
       </StyledNavItem>
     );
 

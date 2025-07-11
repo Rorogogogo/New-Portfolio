@@ -11,6 +11,7 @@ import ProgressBar from 'src/components/progress-bar';
 import { MotionLazy } from 'src/components/animate/motion-lazy';
 import { SettingsDrawer, SettingsProvider } from 'src/components/settings';
 import CursorMultifollow from 'src/components/cursor-multifollow';
+import DisableRightClick from 'src/components/disable-right-click';
 
 // ----------------------------------------------------------------------
 
@@ -53,6 +54,7 @@ export default function RootLayout({ children }: Props) {
           >
             <ThemeProvider>
               <MotionLazy>
+                <DisableRightClick />
                 <ProgressBar />
                 <SettingsDrawer />
                 <CursorMultifollow />

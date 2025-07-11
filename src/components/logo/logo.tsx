@@ -6,6 +6,8 @@ import Box, { BoxProps } from '@mui/material/Box';
 
 import { RouterLink } from 'src/routes/components';
 
+import TextReveal from 'src/components/text-reveal';
+
 // ----------------------------------------------------------------------
 
 interface LogoProps extends BoxProps {
@@ -57,17 +59,19 @@ function Logo({ single = false, sx }: LogoProps) {
       aria-label="go to homepage"
       sx={{ lineHeight: 0 }}
     >
-      <Box
-        sx={{
-          width: single ? 64 : 75,
-          lineHeight: 0,
-          cursor: 'pointer',
-          display: 'inline-flex',
-          ...sx,
-        }}
-      >
-        {single ? singleLogo : fullLogo}
-      </Box>
+      <TextReveal>
+        <Box
+          sx={{
+            width: single ? 64 : 75,
+            lineHeight: 0,
+            cursor: 'pointer',
+            display: 'inline-flex',
+            ...sx,
+          }}
+        >
+          {single ? singleLogo : fullLogo}
+        </Box>
+      </TextReveal>
     </Link>
   );
 }

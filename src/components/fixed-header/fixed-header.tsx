@@ -11,6 +11,7 @@ import { alpha } from '@mui/material/styles';
 import { varFade } from 'src/components/animate';
 import Iconify from 'src/components/iconify';
 import VideoText from 'src/components/video-text';
+import TextReveal from 'src/components/text-reveal';
 
 import { useTheme as useCustomTheme } from 'src/contexts';
 
@@ -76,7 +77,7 @@ export default function FixedHeader() {
                 >
                   <VideoText
                     videoSrc="https://assets.mixkit.co/videos/preview/mixkit-set-of-plateaus-seen-from-the-heights-in-a-sunset-26070-large.mp4"
-                    fontSize="28px"
+                    fontSize="36px"
                     fontWeight="bold"
                   >
                     {item.label}
@@ -88,6 +89,7 @@ export default function FixedHeader() {
             return (
               <Typography
                 key={item.id}
+                component="div"
                 variant="body1"
                 onClick={() => handleNavClick(item.id)}
                 sx={{
@@ -96,10 +98,7 @@ export default function FixedHeader() {
                   cursor: item.id === 'robert' ? 'default' : 'pointer',
                   position: 'relative',
                   transition: 'all 0.5s ease-in-out',
-                  fontSize: item.id === 'robert' ? '1.5rem' : '1rem',
-                  '&:hover': {
-                    color: isDarkMode ? alpha('#FFFFFF', 0.7) : alpha('#000000', 0.7),
-                  },
+                  fontSize: item.id === 'robert' ? '1.8rem' : '1.2rem',
                   '&::after': {
                     content: '""',
                     position: 'absolute',
@@ -112,7 +111,9 @@ export default function FixedHeader() {
                   },
                 }}
               >
-                {item.label}
+                <TextReveal>
+                  {item.label}
+                </TextReveal>
               </Typography>
             );
           })}

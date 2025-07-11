@@ -7,6 +7,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import { RouterLink } from 'src/routes/components';
 
 import Iconify from 'src/components/iconify';
+import TextReveal from 'src/components/text-reveal';
 
 import { NavItemProps, NavItemStateProps } from '../types';
 
@@ -24,8 +25,9 @@ const NavItem = forwardRef<HTMLDivElement, NavItemProps>(
         subItem={subItem}
         {...other}
       >
-        {title}
-
+        <TextReveal style={{ display: 'inline-block' }}>
+          {title}
+        </TextReveal>
         {hasChild && <Iconify width={16} icon="carbon:chevron-down" sx={{ ml: 0.75 }} />}
       </StyledNavItem>
     );
@@ -84,6 +86,7 @@ const StyledNavItem = styled(ListItemButton, {
       fontFamily: theme.typography.fontSecondaryFamily,
       '&:hover': {
         backgroundColor: 'transparent',
+        opacity: 1, // Prevent dimming
         '&:before': {
           ...dotStyles,
           opacity: 0.64,
@@ -104,6 +107,7 @@ const StyledNavItem = styled(ListItemButton, {
       '&:hover': {
         backgroundColor: 'transparent',
         color: theme.palette.text.primary,
+        opacity: 1, // Prevent dimming
       },
       ...(active && {
         color: theme.palette.text.primary,
