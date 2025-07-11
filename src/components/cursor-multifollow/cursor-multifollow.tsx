@@ -1,6 +1,6 @@
 "use client";
 
-import { Cursor } from "motion-plus/react";
+import { Cursor } from "motion-plus-react";
 
 export default function CursorMultifollow() {
   return (
