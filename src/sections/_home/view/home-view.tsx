@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 
 import FixedHeader from 'src/components/fixed-header';
 import { ThemeProvider, useTheme } from 'src/contexts';
+import GlobalLoadingLayout from 'src/components/global-loading-layout';
 import HomeHero from '../home-hero';
 
 function HomeContent() {
@@ -17,7 +18,7 @@ function HomeContent() {
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: isDarkMode ? '#000000' : 'white',
+        backgroundColor: isDarkMode ? '#000000' : '#ffffff',
         overflow: 'hidden',
         transition: 'background-color 0.5s ease-in-out',
       }}
@@ -30,7 +31,7 @@ function HomeContent() {
           left: 0,
           right: 0,
           height: '80px',
-          backgroundColor: isDarkMode ? '#000000' : 'white',
+          backgroundColor: isDarkMode ? '#000000' : '#ffffff',
           zIndex: 1000,
           display: 'flex',
           alignItems: 'center',
@@ -62,7 +63,9 @@ function HomeContent() {
 export default function HomeView() {
   return (
     <ThemeProvider>
-      <HomeContent />
+      <GlobalLoadingLayout>
+        <HomeContent />
+      </GlobalLoadingLayout>
     </ThemeProvider>
   );
 }

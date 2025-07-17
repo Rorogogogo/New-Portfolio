@@ -1,6 +1,7 @@
 'use client';
 
 import { createContext, useContext, useState, ReactNode } from 'react';
+import { useSettingsContext } from 'src/components/settings';
 
 interface ThemeContextType {
   isDarkMode: boolean;
@@ -12,11 +13,14 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [isDarkMode, setIsDarkMode] = useState(true); // Default to dark mode
+  const settings = useSettingsContext();
   const [currentPage, setCurrentPage] = useState('home');
 
+  const isDarkMode = settings.themeMode === 'dark';
+
   const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
+    const newTheme = isDarkMode ? 'light' : 'dark';
+    settings.onUpdate('themeMode', newTheme);
   };
 
   return (

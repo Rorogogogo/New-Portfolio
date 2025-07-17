@@ -5,10 +5,10 @@ import Box from '@mui/material/Box';
 import FixedHeader from 'src/components/fixed-header';
 import { ThemeProvider, useTheme } from 'src/contexts';
 import Particles from 'src/components/magicui/particles';
+import GlobalLoadingLayout from 'src/components/global-loading-layout';
 
 import AboutHero from '../about-hero';
 import AboutExperience from '../about-experience';
-import AboutProjects from '../about-projects';
 import AboutLocation from '../about-location';
 import AboutSkills from '../about-skills';
 
@@ -96,11 +96,6 @@ function AboutContent() {
         <Box sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center' }}>
           <AboutExperience />
         </Box>
-
-        {/* Projects Section */}
-        <Box sx={{ minHeight: '80vh', display: 'flex', alignItems: 'center' }}>
-          <AboutProjects />
-        </Box>
       </Box>
     </Box>
   );
@@ -109,7 +104,9 @@ function AboutContent() {
 export default function AboutView() {
   return (
     <ThemeProvider>
-      <AboutContent />
+      <GlobalLoadingLayout>
+        <AboutContent />
+      </GlobalLoadingLayout>
     </ThemeProvider>
   );
 }
