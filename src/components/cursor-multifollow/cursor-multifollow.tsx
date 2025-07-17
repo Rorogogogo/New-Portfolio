@@ -1,8 +1,19 @@
 "use client";
 
+import { useEffect } from 'react';
 import { Cursor } from "motion-plus-react";
 
 export default function CursorMultifollow() {
+  useEffect(() => {
+    // Hide the default cursor globally
+    document.body.style.cursor = 'none';
+    
+    // Cleanup on unmount
+    return () => {
+      document.body.style.cursor = 'auto';
+    };
+  }, []);
+
   return (
     <>
       <Cursor

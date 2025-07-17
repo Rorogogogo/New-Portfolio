@@ -1,0 +1,181 @@
+'use client';
+
+import { m } from 'framer-motion';
+
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+
+import { varFade } from 'src/components/animate';
+import { OrbitingCircles } from 'src/components/magicui/orbiting-circles';
+import { useTheme } from 'src/contexts';
+import Iconify from 'src/components/iconify';
+
+const techStack = [
+  { name: 'React', icon: 'logos:react', color: '#61DAFB' },
+  { name: 'Next.js', icon: 'logos:nextjs-icon', color: '#000000' },
+  { name: 'TypeScript', icon: 'logos:typescript-icon', color: '#3178C6' },
+  { name: '.NET', icon: 'logos:dotnet', color: '#512BD4' },
+  { name: 'C#', icon: 'logos:c-sharp', color: '#239120' },
+  { name: 'Python', icon: 'logos:python', color: '#3776AB' },
+  { name: 'PostgreSQL', icon: 'logos:postgresql', color: '#336791' },
+  { name: 'AWS', icon: 'simple-icons:amazonaws', color: '#FF9900' },
+  { name: 'Docker', icon: 'logos:docker-icon', color: '#2496ED' },
+  { name: 'Git', icon: 'logos:git-icon', color: '#F05032' },
+  { name: 'Node.js', icon: 'logos:nodejs-icon', color: '#339933' },
+  { name: 'MongoDB', icon: 'logos:mongodb-icon', color: '#47A248' },
+];
+
+export default function AboutSkills() {
+  const { isDarkMode } = useTheme();
+
+  const handleProfileClick = (event: React.MouseEvent) => {
+    // Create a cool particle effect
+    const rect = (event.target as HTMLElement).getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
+    // Create multiple particles
+    for (let i = 0; i < 20; i++) {
+      const particle = document.createElement('div');
+      particle.style.position = 'fixed';
+      particle.style.left = `${centerX}px`;
+      particle.style.top = `${centerY}px`;
+      particle.style.width = '8px';
+      particle.style.height = '8px';
+      particle.style.borderRadius = '50%';
+      particle.style.background = `hsl(${Math.random() * 360}, 70%, 60%)`;
+      particle.style.pointerEvents = 'none';
+      particle.style.zIndex = '9999';
+      
+      const angle = (Math.PI * 2 * i) / 20;
+      const velocity = 100 + Math.random() * 100;
+      const vx = Math.cos(angle) * velocity;
+      const vy = Math.sin(angle) * velocity;
+      
+      document.body.appendChild(particle);
+      
+      // Animate particle
+      particle.animate([
+        { transform: 'translate(0, 0) scale(1)', opacity: 1 },
+        { transform: `translate(${vx}px, ${vy}px) scale(0)`, opacity: 0 }
+      ], {
+        duration: 1000,
+        easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+      }).onfinish = () => {
+        document.body.removeChild(particle);
+      };
+    }
+  };
+
+  return (
+    <Container
+      component={m.div}
+      variants={varFade().inUp}
+      sx={{
+        py: 0,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      {/* Skills Orbiting Animation - Exact same size as globe */}
+      <Box
+        sx={{
+          position: 'relative',
+          width: 600,
+          height: 600,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Box
+          onClick={handleProfileClick}
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: 140,
+            height: 140,
+            borderRadius: '50%',
+            background: isDarkMode
+              ? 'linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%)'
+              : 'linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            boxShadow: isDarkMode
+              ? '0 8px 32px rgba(255, 255, 255, 0.1)'
+              : '0 8px 32px rgba(0, 0, 0, 0.1)',
+            border: isDarkMode ? '2px solid rgba(255, 255, 255, 0.1)' : '2px solid rgba(0, 0, 0, 0.1)',
+            cursor: 'pointer',
+            transition: 'all 0.3s ease',
+            '&:hover': {
+              transform: 'translate(-50%, -50%) scale(1.1)',
+              boxShadow: isDarkMode
+                ? '0 12px 48px rgba(255, 255, 255, 0.2)'
+                : '0 12px 48px rgba(0, 0, 0, 0.2)',
+            },
+          }}
+        >
+          <Box
+            component="img"
+            src="/favicon/apple-touch-icon.png"
+            alt="Robert Wang Portrait"
+            sx={{
+              width: 120,
+              height: 120,
+              borderRadius: '50%',
+              objectFit: 'cover',
+            }}
+          />
+        </Box>
+
+        <OrbitingCircles radius={180} duration={20} reverse iconSize={70} path>
+          {techStack.slice(0, 6).map((tech) => (
+            <div
+              key={tech.name}
+              className="flex items-center justify-center rounded-full bg-white shadow-lg dark:bg-gray-800"
+              style={{
+                width: '70px',
+                height: '70px',
+              }}
+            >
+              <Iconify
+                icon={tech.icon}
+                style={{
+                  width: 42,
+                  height: 42,
+                  color: tech.color,
+                }}
+              />
+            </div>
+          ))}
+        </OrbitingCircles>
+
+        <OrbitingCircles radius={270} duration={30} iconSize={60} path>
+          {techStack.slice(6).map((tech) => (
+            <div
+              key={tech.name}
+              className="flex items-center justify-center rounded-full bg-white shadow-lg dark:bg-gray-800"
+              style={{
+                width: '60px',
+                height: '60px',
+              }}
+            >
+              <Iconify
+                icon={tech.icon}
+                style={{
+                  width: 36,
+                  height: 36,
+                  color: tech.color,
+                }}
+              />
+            </div>
+          ))}
+        </OrbitingCircles>
+      </Box>
+    </Container>
+  );
+}

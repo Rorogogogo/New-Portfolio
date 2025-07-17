@@ -25,3 +25,17 @@ html, body {
   width: 100%;
   overflow: hidden;
 }
+
+/* OrbitingCircles animation */
+@keyframes orbit {
+  0% {
+    transform: rotate(var(--angle, 0deg)) translateX(var(--radius)) rotate(calc(-1 * var(--angle, 0deg)));
+  }
+  100% {
+    transform: rotate(calc(var(--angle, 0deg) + 360deg)) translateX(var(--radius)) rotate(calc(-1 * (var(--angle, 0deg) + 360deg)));
+  }
+}
+
+.animate-orbit {
+  animation: orbit var(--duration) linear infinite;
+}

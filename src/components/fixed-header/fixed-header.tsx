@@ -12,25 +12,36 @@ import { varFade } from 'src/components/animate';
 import Iconify from 'src/components/iconify';
 import VideoText from 'src/components/video-text';
 import TextReveal from 'src/components/text-reveal';
+import { useRouter, usePathname } from 'src/routes/hooks';
 
 import { useTheme as useCustomTheme } from 'src/contexts';
 
 export default function FixedHeader() {
-  const { isDarkMode, toggleTheme, setCurrentPage } = useCustomTheme();
-  const [activeSection, setActiveSection] = useState('home');
+  const { isDarkMode, toggleTheme } = useCustomTheme();
+  const router = useRouter();
+  const pathname = usePathname();
 
   const navItems = [
-    { id: 'robert', label: 'Robert Wang' },
-    { id: 'home', label: 'Home' },
-    { id: 'about', label: 'About' },
-    { id: 'projects', label: 'Projects' },
-    { id: 'contact', label: 'Contact' },
+    { id: 'robert', label: 'Robert Wang', path: '/' },
+    { id: 'home', label: 'Home', path: '/' },
+    { id: 'about', label: 'About', path: '/about' },
+    { id: 'projects', label: 'Projects', path: '/projects' },
+    { id: 'contact', label: 'Contact', path: '/contact' },
   ];
 
-  const handleNavClick = (sectionId: string) => {
-    if (sectionId === 'robert') return; // Robert is just a label, not clickable
-    setActiveSection(sectionId);
-    setCurrentPage(sectionId);
+  const getCurrentSection = () => {
+    if (pathname === '/') return 'home';
+    if (pathname === '/about') return 'about';
+    if (pathname === '/projects') return 'projects';
+    if (pathname === '/contact') return 'contact';
+    return 'home';
+  };
+
+  const activeSection = getCurrentSection();
+
+  const handleNavClick = (item: any) => {
+    if (item.id === 'robert') return; // Robert is just a label, not clickable
+    router.push(item.path);
   };
 
   const getFontWeight = (itemId: string) => {
@@ -91,7 +102,7 @@ export default function FixedHeader() {
                 key={item.id}
                 component="div"
                 variant="body1"
-                onClick={() => handleNavClick(item.id)}
+                onClick={() => handleNavClick(item)}
                 sx={{
                   color: isDarkMode ? 'white' : 'black',
                   fontWeight: getFontWeight(item.id),
