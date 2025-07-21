@@ -3,7 +3,7 @@
 import NProgress from 'nprogress';
 import { Suspense, useEffect } from 'react';
 
-import { useRouter, usePathname, useSearchParams } from 'src/routes/hooks';
+import { useRouter, usePathname } from 'src/routes/hooks';
 
 import StyledProgressBar from './styles';
 
@@ -66,11 +66,9 @@ function NProgressDone() {
 
   const router = useRouter();
 
-  const searchParams = useSearchParams();
-
   useEffect(() => {
     NProgress.done();
-  }, [pathname, router, searchParams]);
+  }, [pathname, router]);
 
   return null;
 }

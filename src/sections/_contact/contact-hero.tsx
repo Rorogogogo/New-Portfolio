@@ -41,14 +41,14 @@ const contactMethods = [
     icon: 'material-symbols:call',
     color: '#34A853',
     action: 'copy',
-  }
+  },
 ];
 
 export default function ContactHero() {
   const { isDarkMode } = useTheme();
   const [copySuccess, setCopySuccess] = useState('');
 
-  const handleContactAction = async (method: typeof contactMethods[0]) => {
+  const handleContactAction = async (method: (typeof contactMethods)[0]) => {
     if (method.action === 'copy') {
       try {
         await navigator.clipboard.writeText(method.value);
@@ -60,8 +60,6 @@ export default function ContactHero() {
       window.open(method.value, '_blank', 'noopener,noreferrer');
     }
   };
-
-
 
   return (
     <Box
@@ -88,7 +86,6 @@ export default function ContactHero() {
         justifyContent: 'center',
       }}
     >
-
       {/* Geometric Background Shapes */}
       {[1, 2, 3, 4, 5].map((i) => (
         <Box
@@ -98,12 +95,13 @@ export default function ContactHero() {
             width: { xs: 40, sm: 60, md: 120 },
             height: { xs: 40, sm: 60, md: 120 },
             borderRadius: i % 2 === 0 ? '50%' : '30%',
-            background: `linear-gradient(45deg, ${contactMethods[(i-1) % contactMethods.length]?.color}20, transparent)`,
-            border: `2px solid ${contactMethods[(i-1) % contactMethods.length]?.color}30`,
-            top: `${[15, 20, 75, 80, 45][i-1]}%`,
-            left: { 
-              xs: `${[5, 80, 10, 85, 88][i-1]}%`, 
-              md: `${[10, 85, 15, 80, 90][i-1]}%` 
+            background: `linear-gradient(45deg, ${contactMethods[(i - 1) % contactMethods.length]
+              ?.color}20, transparent)`,
+            border: `2px solid ${contactMethods[(i - 1) % contactMethods.length]?.color}30`,
+            top: `${[15, 20, 75, 80, 45][i - 1]}%`,
+            left: {
+              xs: `${[5, 80, 10, 85, 88][i - 1]}%`,
+              md: `${[10, 85, 15, 80, 90][i - 1]}%`,
             },
             transform: `rotate(${i * 30}deg)`,
             animation: `float${i} ${4 + i}s ease-in-out infinite`,
@@ -143,7 +141,13 @@ export default function ContactHero() {
       >
         {/* Title Section - Responsive Offset */}
         <m.div variants={varFade().inLeft}>
-          <Box sx={{ ml: { xs: 0, md: -8 }, mb: { xs: 4, md: 6 }, textAlign: { xs: 'center', md: 'left' } }}>
+          <Box
+            sx={{
+              ml: { xs: 0, md: -8 },
+              mb: { xs: 4, md: 6 },
+              textAlign: { xs: 'center', md: 'left' },
+            }}
+          >
             <Typography
               variant="h1"
               sx={{
@@ -168,7 +172,7 @@ export default function ContactHero() {
               <br />
               Connect
             </Typography>
-            
+
             <Typography
               variant="h3"
               sx={{
@@ -182,7 +186,7 @@ export default function ContactHero() {
             >
               Robert (Xu) Wang
             </Typography>
-            
+
             <Typography
               variant="body1"
               sx={{
@@ -207,46 +211,46 @@ export default function ContactHero() {
             mt: { xs: 3, md: 4 },
           }}
         >
-
           {contactMethods.map((method, index) => {
             const isOdd = index % 2 !== 0;
             const delay = 0.6 + index * 0.15;
-            
+
             return (
-              <m.div
+              <Box
                 key={method.name}
+                component={m.div}
                 variants={isOdd ? varFade().inRight : varFade().inLeft}
                 transition={{ delay }}
-                style={{
-                  gridColumn: { xs: 'span 1', sm: (index >= 2 ? (isOdd ? '2' : '1') : 'span 1') },
+                sx={{
+                  gridColumn: { xs: 'span 1', sm: index >= 2 ? (isOdd ? '2' : '1') : 'span 1' },
                 }}
               >
                 <Box
                   onClick={() => handleContactAction(method)}
                   sx={{
-                    backgroundColor: isDarkMode 
-                      ? 'rgba(255,255,255,0.03)' 
+                    backgroundColor: isDarkMode
+                      ? 'rgba(255,255,255,0.03)'
                       : 'rgba(255,255,255,0.7)',
                     backdropFilter: 'blur(15px)',
                     border: `2px solid ${method.color}40`,
-                    borderRadius: { 
+                    borderRadius: {
                       xs: '16px',
-                      md: isOdd ? '25px 8px 25px 8px' : '8px 25px 8px 25px'
+                      md: isOdd ? '25px 8px 25px 8px' : '8px 25px 8px 25px',
                     },
                     padding: { xs: 2.5, md: 3 },
                     cursor: 'pointer',
                     transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                    transform: { 
+                    transform: {
                       xs: 'rotate(0deg)',
-                      md: `rotate(${isOdd ? '2deg' : '-2deg'})`
+                      md: `rotate(${isOdd ? '2deg' : '-2deg'})`,
                     },
                     boxShadow: `0 8px 32px ${method.color}15`,
                     position: 'relative',
                     overflow: 'hidden',
                     '&:hover': {
-                      transform: { 
+                      transform: {
                         xs: 'scale(1.02)',
-                        md: 'rotate(0deg) scale(1.05)'
+                        md: 'rotate(0deg) scale(1.05)',
                       },
                       backgroundColor: `${method.color}15`,
                       border: `2px solid ${method.color}80`,
@@ -315,12 +319,11 @@ export default function ContactHero() {
                     </Box>
                   </Box>
                 </Box>
-              </m.div>
+              </Box>
             );
           })}
         </Box>
       </Box>
-
 
       {/* Copy Success Snackbar */}
       <Snackbar
