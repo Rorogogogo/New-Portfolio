@@ -1,0 +1,1 @@
+export { default } from 'src/sections/_contact/view/contact-view';

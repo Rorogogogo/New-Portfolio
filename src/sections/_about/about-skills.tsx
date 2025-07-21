@@ -30,42 +30,64 @@ export default function AboutSkills() {
   const { isDarkMode } = useTheme();
 
   const handleProfileClick = (event: React.MouseEvent) => {
-    // Create a cool particle effect
+    // Create tech icon particle burst effect
     const rect = (event.target as HTMLElement).getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
     
-    // Create multiple particles
-    for (let i = 0; i < 20; i++) {
-      const particle = document.createElement('div');
-      particle.style.position = 'fixed';
-      particle.style.left = `${centerX}px`;
-      particle.style.top = `${centerY}px`;
-      particle.style.width = '8px';
-      particle.style.height = '8px';
-      particle.style.borderRadius = '50%';
-      particle.style.background = `hsl(${Math.random() * 360}, 70%, 60%)`;
-      particle.style.pointerEvents = 'none';
-      particle.style.zIndex = '9999';
-      
-      const angle = (Math.PI * 2 * i) / 20;
-      const velocity = 100 + Math.random() * 100;
-      const vx = Math.cos(angle) * velocity;
-      const vy = Math.sin(angle) * velocity;
-      
-      document.body.appendChild(particle);
-      
-      // Animate particle
-      particle.animate([
-        { transform: 'translate(0, 0) scale(1)', opacity: 1 },
-        { transform: `translate(${vx}px, ${vy}px) scale(0)`, opacity: 0 }
-      ], {
-        duration: 1000,
-        easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
-      }).onfinish = () => {
-        document.body.removeChild(particle);
-      };
-    }
+    // Create particles for each tech icon with wider range
+    techStack.forEach((tech, index) => {
+      // Create multiple instances of each tech for more impressive effect
+      for (let j = 0; j < 2; j++) {
+        const particle = document.createElement('div');
+        particle.style.position = 'fixed';
+        particle.style.left = `${centerX}px`;
+        particle.style.top = `${centerY}px`;
+        particle.style.width = '40px';
+        particle.style.height = '40px';
+        particle.style.borderRadius = '50%';
+        particle.style.backgroundColor = 'white';
+        particle.style.display = 'flex';
+        particle.style.alignItems = 'center';
+        particle.style.justifyContent = 'center';
+        particle.style.boxShadow = '0 4px 12px rgba(0,0,0,0.2)';
+        particle.style.pointerEvents = 'none';
+        particle.style.zIndex = '9999';
+        
+        // Create iconify element inside particle
+        const iconElement = document.createElement('div');
+        iconElement.innerHTML = `<iconify-icon icon="${tech.icon}" style="color: ${tech.color}; width: 24px; height: 24px;"></iconify-icon>`;
+        particle.appendChild(iconElement);
+        
+        // Wider angle distribution and longer distance
+        const baseAngle = (Math.PI * 2 * index) / techStack.length;
+        const angleVariation = (Math.random() - 0.5) * 0.8; // Add some randomness
+        const angle = baseAngle + angleVariation + (j * 0.3); // Offset for multiple instances
+        
+        const velocity = 200 + Math.random() * 300; // Increased range: 200-500px
+        const vx = Math.cos(angle) * velocity;
+        const vy = Math.sin(angle) * velocity;
+        
+        document.body.appendChild(particle);
+        
+        // Animate particle with longer duration and rotation
+        particle.animate([
+          { 
+            transform: 'translate(-50%, -50%) scale(1) rotate(0deg)', 
+            opacity: 1 
+          },
+          { 
+            transform: `translate(calc(-50% + ${vx}px), calc(-50% + ${vy}px)) scale(0.2) rotate(720deg)`, 
+            opacity: 0 
+          }
+        ], {
+          duration: 1500 + Math.random() * 500, // 1.5-2 seconds
+          easing: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+        }).onfinish = () => {
+          document.body.removeChild(particle);
+        };
+      }
+    });
   };
 
   return (

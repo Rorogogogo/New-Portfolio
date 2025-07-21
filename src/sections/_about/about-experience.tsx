@@ -17,16 +17,39 @@ const experiences = [
     company: 'DDT Holdings',
     period: 'Nov 2024 – Present',
     location: 'Sydney, Australia',
-    description: 'Designing and developing commercial-grade export management systems',
-    technologies: ['React', 'TypeScript', '.NET Core', 'PostgreSQL', 'Azure DevOps', 'SignalR'],
+    description: 'Designed, developed, and deployed a commercial-grade export management system using React TypeScript, .NET Core, and PostgreSQL—delivering end-to-end solutions across architecture, deployment, data processing, and automated testing.',
+    technologies: ['React', 'TypeScript', '.NET Core', 'PostgreSQL', 'Azure DevOps', 'SignalR', 'Hangfire', 'EDIFabric'],
     achievements: [
-      'Designed microservices using Onion architecture with clean REST APIs',
-      'Implemented role-based authentication using Entity Framework Identity and JWT',
-      'Built automated email pipeline with Hangfire and Azure Service Bus',
-      'Set up secure CI/CD pipelines in Azure DevOps with Key Vault integration',
+      'Designed microservices using Onion architecture with clean REST APIs, secured by IP whitelisting and firewall rules',
+      'Implemented role-based authentication and authorization using Entity Framework Identity and JWT middleware',
+      'Used EDIFabric for EDI parsing and object transformation; integrated Ghostscript for file format conversion',
+      'Built an automated email pipeline with Hangfire to poll Exchange emails in a VM, push updates via Azure Service Bus, and send real-time alerts using SignalR',
+      'Managed domain hosting and traffic through Cloudflare and nginx; applied strict firewall and IP whitelisting for API protection',
+      'Set up secure CI/CD pipelines in Azure DevOps with Key Vault integration for secrets/configs, automated DB migrations, and custom agents to bypass firewall restrictions',
+      'Added manual approval steps between environments, coordinated UAT, and worked closely with operations and third-party teams to meet business goals',
+      'Gained hands-on experience working on CRM systems with functionality overlapping ERP features, including sales tracking, finance modules, and user permissions'
     ],
     icon: 'material-symbols:rocket-launch',
+    logo: '/assets/experience/DDT.svg',
     color: '#10B981',
+  },
+  {
+    id: 's4i-solutions',
+    role: 'Full Stack Developer Intern',
+    company: 'S4i - Solutions for Integrators',
+    period: 'May 2024 – Aug 2024',
+    location: 'Sydney, Australia',
+    description: 'Built fully integrated systems using Blazor, Python, and AWS while implementing real-time monitoring solutions.',
+    technologies: ['Blazor', 'MySQL', 'AWS', 'Python', 'xAPI', 'MQTT', 'Docker', 'Parcel JS'],
+    achievements: [
+      'Built a fully integrated tennis court booking system using Blazor and MySQL, deployed on AWS with HTTPS security',
+      'Developed responsive lighting dashboards using xAPI and Python, optimizing data conversion for real-time updates',
+      'Implemented MQTT protocol for UI integration and launched the dashboard on Docker, improving system responsiveness and client satisfaction',
+      'Packaged and deployed the application using Parcel JS, incorporating client feedback to enhance the UI/UX'
+    ],
+    icon: 'material-symbols:integration-instructions',
+    logo: '/assets/experience/S4I.svg',
+    color: '#F59E0B',
   },
   {
     id: 'sam-coach',
@@ -34,15 +57,17 @@ const experiences = [
     company: 'SAM.Coach',
     period: 'Jan 2024 – May 2024',
     location: 'Sydney, Australia',
-    description: 'Engineered scalable CRM platform with comprehensive business modules',
-    technologies: ['.NET Blazor', 'MySQL', 'EF Core', 'Azure', 'RESTful APIs', 'Figma'],
+    description: 'Engineered a scalable CRM platform using .NET Blazor, MySQL, EF Core, Azure services, and RESTful APIs; collaborated on designing and automating CI/CD pipelines with Azure DevOps.',
+    technologies: ['.NET Blazor', 'MySQL', 'EF Core', 'Azure', 'RESTful APIs', 'Figma', 'Azure DevOps'],
     achievements: [
-      'Developed key business modules including sales tracking and user management',
-      'Designed responsive UIs using Figma following accessibility standards',
-      'Led iterative UAT cycles coordinating cross-functional teams',
-      'Spearheaded Zoom Marketplace integration and technical documentation',
+      'Developed key business modules including sales tracking, user management, and customer feedback systems; integrated data analytics to enable actionable insights',
+      'Designed intuitive, responsive UIs using Figma, following user-centered design principles and accessibility standards to ensure consistent cross-device experiences',
+      'Led iterative UAT cycles, coordinating cross-functional teams to identify and resolve issues, optimizing performance, usability, and overall client satisfaction',
+      'Spearheaded technical integration and authored thorough documentation for successful Zoom Marketplace launch, ensuring full platform compliance and smooth user onboarding',
+      'Recognized for strong communication skills, adherence to clean, maintainable coding practices, and consistent delivery within tight timelines'
     ],
     icon: 'material-symbols:code',
+    logo: '/assets/experience/SAM.png',
     color: '#3B82F6',
   },
   {
@@ -51,15 +76,16 @@ const experiences = [
     company: 'University Of Sydney',
     period: 'Feb 2023 – Dec 2024',
     location: 'Sydney, Australia',
-    description: 'Delivered personalized support and led campus initiatives',
+    description: 'Delivered personalized support and conducted engaging information sessions for prospective students and campus visitors; facilitated detailed surveys to gather insights.',
     technologies: ['Event Management', 'Survey Systems', 'Communications', 'Project Planning'],
     achievements: [
-      'Conducted engaging information sessions for prospective students',
-      'Led O-Week activities planning and execution with satisfaction surveys',
-      'Contributed to university-wide consent campaign and campus improvements',
-      'Compiled comprehensive feedback to refine student services',
+      'Led planning and execution of O-Week activities, managing strategic wayfinding, providing hands-on event support, and administering satisfaction surveys',
+      'Actively contributed to major initiatives including the university-wide consent campaign, campus design improvements, and usability testing for the new university website',
+      'Compiled and communicated comprehensive feedback to key stakeholders to help refine student services and streamline administrative processes',
+      'Promoted a more accessible, efficient, and student-centric campus environment through strategic initiatives and feedback collection'
     ],
     icon: 'material-symbols:school',
+    logo: '/assets/experience/USYD.svg',
     color: '#8B5CF6',
   },
 ];
@@ -163,7 +189,7 @@ function ExperienceCardContent({ experience }: { experience: (typeof experiences
       style={{
         height: '100%',
         width: '100%',
-        maxWidth: '900px',
+        maxWidth: '1200px',
         margin: '0 auto',
         background: isDarkMode
           ? 'linear-gradient(135deg, rgba(45, 45, 45, 0.95) 0%, rgba(35, 35, 35, 0.9) 100%)'
@@ -216,7 +242,7 @@ function ExperienceCardContent({ experience }: { experience: (typeof experiences
           flexDirection: 'column',
           position: 'relative',
           zIndex: 1,
-          minHeight: '600px',
+          minHeight: '450px', // Reduced height for horizontal layout
         }}
       >
         {/* Header Section */}
@@ -225,18 +251,22 @@ function ExperienceCardContent({ experience }: { experience: (typeof experiences
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'flex-start',
-            marginBottom: '24px',
+            marginBottom: '20px',
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
             {/* Icon */}
             <div
               style={{
-                width: '70px',
-                height: '70px',
-                borderRadius: '12px',
-                background: `linear-gradient(135deg, ${experience.color}20, ${experience.color}40)`,
-                border: `3px solid ${experience.color}`,
+                width: '80px',
+                height: '80px',
+                borderRadius: '10px',
+                background: experience.logo 
+                  ? 'rgba(255, 255, 255, 0.1)' 
+                  : `linear-gradient(135deg, ${experience.color}20, ${experience.color}40)`,
+                border: experience.logo 
+                  ? '2px solid rgba(255, 255, 255, 0.2)' 
+                  : `3px solid ${experience.color}`,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -244,15 +274,28 @@ function ExperienceCardContent({ experience }: { experience: (typeof experiences
                 position: 'relative',
               }}
             >
-              <Iconify
-                icon={experience.icon}
-                style={{
-                  width: '36px',
-                  height: '36px',
-                  color: experience.color,
-                  filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.3))',
-                }}
-              />
+              {experience.logo ? (
+                <img
+                  src={experience.logo}
+                  alt={`${experience.company} logo`}
+                  style={{
+                    width: '60px',
+                    height: '60px',
+                    objectFit: 'contain',
+                    filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.3))',
+                  }}
+                />
+              ) : (
+                <Iconify
+                  icon={experience.icon}
+                  style={{
+                    width: '45px',
+                    height: '45px',
+                    color: experience.color,
+                    filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.3))',
+                  }}
+                />
+              )}
             </div>
 
             {/* Title and Period */}
@@ -261,9 +304,9 @@ function ExperienceCardContent({ experience }: { experience: (typeof experiences
                 style={{
                   fontWeight: 700,
                   fontSize: '2.2rem',
-                  marginBottom: '8px',
+                  marginBottom: '6px',
                   color: isDarkMode ? '#ffffff' : '#000000', // Solid colors for better contrast
-                  margin: '0 0 8px 0',
+                  margin: '0 0 6px 0',
                 }}
               >
                 {experience.role}
@@ -272,8 +315,8 @@ function ExperienceCardContent({ experience }: { experience: (typeof experiences
                 style={{
                   color: isDarkMode ? '#ffffff' : experience.color, // White in dark mode for contrast
                   fontWeight: 600,
-                  margin: '0 0 8px 0',
-                  fontSize: '1.25rem',
+                  margin: '0 0 6px 0',
+                  fontSize: '1.4rem',
                 }}
               >
                 {experience.company}
@@ -283,7 +326,7 @@ function ExperienceCardContent({ experience }: { experience: (typeof experiences
                   color: isDarkMode ? '#B0B0B0' : '#666666',
                   fontWeight: 500,
                   margin: 0,
-                  fontSize: '0.875rem',
+                  fontSize: '1rem',
                 }}
               >
                 {experience.period} • {experience.location}
@@ -292,43 +335,46 @@ function ExperienceCardContent({ experience }: { experience: (typeof experiences
           </div>
         </div>
 
-        {/* Description */}
-        <p
-          style={{
-            color: isDarkMode ? '#D0D0D0' : '#374151',
-            lineHeight: 1.7,
-            marginBottom: '40px',
-            fontSize: '1.3rem',
-            fontWeight: 400,
-            margin: '0 0 40px 0',
-          }}
-        >
-          {experience.description}
-        </p>
 
-        {/* Technologies and Achievements */}
+        {/* Main Content - Horizontal Layout */}
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: '40px',
+            gridTemplateColumns: '1fr 300px 1fr',
+            gap: '32px',
             flexGrow: 1,
+            alignItems: 'start',
           }}
         >
+          {/* Description Column */}
+          <div>
+            <p
+              style={{
+                color: isDarkMode ? '#D0D0D0' : '#374151',
+                lineHeight: 1.6,
+                fontSize: '1.1rem',
+                fontWeight: 400,
+                margin: 0,
+                textAlign: 'justify',
+              }}
+            >
+              {experience.description}
+            </p>
+          </div>
           {/* Technologies */}
           <div>
             <h6
               style={{
                 fontWeight: 600,
-                marginBottom: '24px',
+                marginBottom: '16px',
                 color: isDarkMode ? '#FFFFFF' : '#111827',
-                fontSize: '1.1rem',
-                margin: '0 0 24px 0',
+                fontSize: '1.2rem',
+                margin: '0 0 16px 0',
               }}
             >
               Technologies
             </h6>
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
               {experience.technologies.map((tech, idx) => (
                 <span
                   key={idx}
@@ -337,13 +383,13 @@ function ExperienceCardContent({ experience }: { experience: (typeof experiences
                     border: isDarkMode
                       ? '1px solid rgba(255,255,255,0.3)'
                       : '1px solid rgba(0,0,0,0.3)',
-                    fontSize: '0.85rem',
-                    borderRadius: '8px',
-                    height: '36px',
-                    padding: '0 12px',
-                    display: 'inline-flex',
+                    fontSize: '0.95rem',
+                    borderRadius: '6px',
+                    height: '32px',
+                    padding: '0 10px',
+                    display: 'flex',
                     alignItems: 'center',
-                    // NO hover transitions to prevent conflicts
+                    justifyContent: 'center',
                     transition: 'none',
                     WebkitTransition: 'none',
                   }}
@@ -359,34 +405,35 @@ function ExperienceCardContent({ experience }: { experience: (typeof experiences
             <h6
               style={{
                 fontWeight: 600,
-                marginBottom: '24px',
+                marginBottom: '16px',
                 color: isDarkMode ? '#FFFFFF' : '#111827',
-                fontSize: '1.1rem',
-                margin: '0 0 24px 0',
+                fontSize: '1.2rem',
+                margin: '0 0 16px 0',
               }}
             >
               Key Achievements
             </h6>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-              {experience.achievements.slice(0, 3).map((achievement, idx) => (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
+              {experience.achievements.slice(0, 4).map((achievement, idx) => (
                 <div key={idx} style={{ display: 'flex', alignItems: 'flex-start', gap: '16px' }}>
                   <div
                     style={{
-                      width: '8px',
-                      height: '8px',
+                      width: '6px',
+                      height: '6px',
                       borderRadius: '50%',
                       background: experience.color,
-                      marginTop: '8px',
+                      marginTop: '10px',
                       flexShrink: 0,
-                      boxShadow: `0 0 12px ${experience.color}50`,
+                      boxShadow: `0 0 8px ${experience.color}50`,
                     }}
                   />
                   <p
                     style={{
                       color: isDarkMode ? '#E0E0E0' : '#374151',
-                      lineHeight: 1.7,
+                      lineHeight: 1.5,
                       fontSize: '1rem',
                       margin: 0,
+                      textAlign: 'justify',
                     }}
                   >
                     {achievement}
@@ -545,7 +592,7 @@ export default function AboutExperience({ scrollContainer }: AboutExperienceProp
               data-experience-card
               style={{
                 width: '100%',
-                maxWidth: '900px',
+                maxWidth: '1200px',
                 margin: '0 auto',
                 marginBottom: '140px',
                 transformOrigin: 'top center',
