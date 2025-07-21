@@ -76,24 +76,35 @@ function AboutContent() {
         {/* Orbital & Globe Section */}
         <Box
           sx={{
-            minHeight: '100vh',
+            minHeight: { xs: 'auto', lg: '100vh' },
             display: 'flex',
             flexDirection: { xs: 'column', lg: 'row' },
             alignItems: 'center',
             justifyContent: 'center',
-            gap: 0,
+            gap: { xs: 4, lg: 0 },
             maxWidth: '1600px',
             mx: 'auto',
-            px: 2,
+            px: { xs: 1, sm: 2 },
+            py: { xs: 4, lg: 0 },
           }}
         >
           {/* Orbital Animation on Left */}
-          <Box sx={{ mr: { lg: -10 } }}> {/* Negative margin to pull them closer */}
+          <Box sx={{ 
+            mr: { lg: -10 },
+            width: { xs: '100%', lg: 'auto' },
+            display: 'flex',
+            justifyContent: 'center',
+          }}>
             <AboutSkills />
           </Box>
 
           {/* Globe on Right */}
-          <Box sx={{ ml: { lg: -10 } }}> {/* Negative margin to pull them closer */}
+          <Box sx={{ 
+            ml: { lg: -10 },
+            width: { xs: '100%', lg: 'auto' },
+            display: 'flex',
+            justifyContent: 'center',
+          }}>
             <AboutLocation />
           </Box>
         </Box>

@@ -6,6 +6,8 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme as useMuiTheme } from '@mui/material/styles';
 
 import { varFade } from 'src/components/animate';
 import { useTheme } from 'src/contexts';
@@ -13,6 +15,15 @@ import { Globe } from 'src/components/globe';
 
 export default function AboutLocation() {
   const { isDarkMode } = useTheme();
+  const muiTheme = useMuiTheme();
+  const isXs = useMediaQuery(muiTheme.breakpoints.down('sm'));
+  const isSm = useMediaQuery(muiTheme.breakpoints.down('md'));
+  
+  const getGlobeSize = () => {
+    if (isXs) return 280;
+    if (isSm) return 400;
+    return 600;
+  };
 
   return (
     <Container component={m.div} variants={varFade().inUp} sx={{ py: 0 }}>
@@ -24,8 +35,8 @@ export default function AboutLocation() {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              height: 800, // Back to original size
-              width: 800,  // Back to original size
+              height: { xs: 320, sm: 480, md: 600, lg: 800 },
+              width: { xs: 320, sm: 480, md: 600, lg: 800 },
               mx: 'auto',
               position: 'relative',
             }}
@@ -33,8 +44,8 @@ export default function AboutLocation() {
             <Globe
               className=""
               config={{
-                width: 600,
-                height: 600,
+                width: getGlobeSize(),
+                height: getGlobeSize(),
                 onRender: () => {},
                 devicePixelRatio: 2,
                 phi: 0,

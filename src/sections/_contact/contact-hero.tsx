@@ -95,13 +95,16 @@ export default function ContactHero() {
           key={i}
           sx={{
             position: 'absolute',
-            width: { xs: 60, md: 120 },
-            height: { xs: 60, md: 120 },
+            width: { xs: 40, sm: 60, md: 120 },
+            height: { xs: 40, sm: 60, md: 120 },
             borderRadius: i % 2 === 0 ? '50%' : '30%',
             background: `linear-gradient(45deg, ${contactMethods[(i-1) % contactMethods.length]?.color}20, transparent)`,
             border: `2px solid ${contactMethods[(i-1) % contactMethods.length]?.color}30`,
             top: `${[15, 20, 75, 80, 45][i-1]}%`,
-            left: `${[10, 85, 15, 80, 90][i-1]}%`,
+            left: { 
+              xs: `${[5, 80, 10, 85, 88][i-1]}%`, 
+              md: `${[10, 85, 15, 80, 90][i-1]}%` 
+            },
             transform: `rotate(${i * 30}deg)`,
             animation: `float${i} ${4 + i}s ease-in-out infinite`,
             zIndex: 0,
@@ -138,23 +141,23 @@ export default function ContactHero() {
           width: '90%',
         }}
       >
-        {/* Title Section - Offset */}
+        {/* Title Section - Responsive Offset */}
         <m.div variants={varFade().inLeft}>
-          <Box sx={{ ml: { xs: 0, md: -8 }, mb: 6 }}>
+          <Box sx={{ ml: { xs: 0, md: -8 }, mb: { xs: 4, md: 6 }, textAlign: { xs: 'center', md: 'left' } }}>
             <Typography
               variant="h1"
               sx={{
                 fontWeight: 900,
-                fontSize: { xs: '3rem', md: '5rem' },
+                fontSize: { xs: '2.5rem', sm: '3.5rem', md: '5rem' },
                 lineHeight: 0.9,
-                mb: 2,
+                mb: { xs: 1.5, md: 2 },
                 background: 'linear-gradient(120deg, #3B82F6, #8B5CF6, #EC4899)',
                 backgroundSize: '200% 200%',
                 backgroundClip: 'text',
                 WebkitBackgroundClip: 'text',
                 color: 'transparent',
                 animation: 'gradientShift 3s ease-in-out infinite',
-                transform: 'rotate(-2deg)',
+                transform: { xs: 'rotate(0deg)', md: 'rotate(-2deg)' },
                 '@keyframes gradientShift': {
                   '0%, 100%': { backgroundPosition: '0% 50%' },
                   '50%': { backgroundPosition: '100% 50%' },
@@ -170,11 +173,11 @@ export default function ContactHero() {
               variant="h3"
               sx={{
                 fontWeight: 700,
-                fontSize: { xs: '1.8rem', md: '2.2rem' },
+                fontSize: { xs: '1.3rem', sm: '1.6rem', md: '2.2rem' },
                 color: isDarkMode ? 'rgba(255,255,255,0.9)' : 'rgba(0,0,0,0.8)',
                 mb: 1,
-                transform: 'rotate(1deg)',
-                ml: 4,
+                transform: { xs: 'rotate(0deg)', md: 'rotate(1deg)' },
+                ml: { xs: 0, md: 4 },
               }}
             >
               Robert (Xu) Wang
@@ -183,11 +186,11 @@ export default function ContactHero() {
             <Typography
               variant="body1"
               sx={{
-                fontSize: '1.2rem',
+                fontSize: { xs: '1rem', md: '1.2rem' },
                 color: isDarkMode ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.6)',
                 fontStyle: 'italic',
-                transform: 'rotate(-1deg)',
-                ml: 2,
+                transform: { xs: 'rotate(0deg)', md: 'rotate(-1deg)' },
+                ml: { xs: 0, md: 2 },
               }}
             >
               "coding for a better world"
@@ -195,13 +198,13 @@ export default function ContactHero() {
           </Box>
         </m.div>
 
-        {/* Contact Methods - Creative Layout */}
+        {/* Contact Methods - Responsive Creative Layout */}
         <Box
           sx={{
             display: 'grid',
-            gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
-            gap: 3,
-            mt: 4,
+            gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: '1fr 1fr' },
+            gap: { xs: 2, md: 3 },
+            mt: { xs: 3, md: 4 },
           }}
         >
 
@@ -215,7 +218,7 @@ export default function ContactHero() {
                 variants={isOdd ? varFade().inRight : varFade().inLeft}
                 transition={{ delay }}
                 style={{
-                  gridColumn: index >= 2 ? (isOdd ? '2' : '1') : 'span 1',
+                  gridColumn: { xs: 'span 1', sm: (index >= 2 ? (isOdd ? '2' : '1') : 'span 1') },
                 }}
               >
                 <Box
@@ -226,16 +229,25 @@ export default function ContactHero() {
                       : 'rgba(255,255,255,0.7)',
                     backdropFilter: 'blur(15px)',
                     border: `2px solid ${method.color}40`,
-                    borderRadius: isOdd ? '25px 8px 25px 8px' : '8px 25px 8px 25px',
-                    padding: 3,
+                    borderRadius: { 
+                      xs: '16px',
+                      md: isOdd ? '25px 8px 25px 8px' : '8px 25px 8px 25px'
+                    },
+                    padding: { xs: 2.5, md: 3 },
                     cursor: 'pointer',
                     transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                    transform: `rotate(${isOdd ? '2deg' : '-2deg'})`,
+                    transform: { 
+                      xs: 'rotate(0deg)',
+                      md: `rotate(${isOdd ? '2deg' : '-2deg'})`
+                    },
                     boxShadow: `0 8px 32px ${method.color}15`,
                     position: 'relative',
                     overflow: 'hidden',
                     '&:hover': {
-                      transform: `rotate(0deg) scale(1.05)`,
+                      transform: { 
+                        xs: 'scale(1.02)',
+                        md: 'rotate(0deg) scale(1.05)'
+                      },
                       backgroundColor: `${method.color}15`,
                       border: `2px solid ${method.color}80`,
                       boxShadow: `0 15px 60px ${method.color}30`,
@@ -255,34 +267,35 @@ export default function ContactHero() {
                     },
                   }}
                 >
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1.5, md: 2 } }}>
                     <Box
                       sx={{
-                        width: 50,
-                        height: 50,
+                        width: { xs: 40, md: 50 },
+                        height: { xs: 40, md: 50 },
                         borderRadius: '50%',
                         backgroundColor: `${method.color}20`,
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         border: `2px solid ${method.color}40`,
+                        flexShrink: 0,
                       }}
                     >
                       <Iconify
                         icon={method.icon}
                         sx={{
-                          width: 24,
-                          height: 24,
+                          width: { xs: 20, md: 24 },
+                          height: { xs: 20, md: 24 },
                           color: method.color,
                         }}
                       />
                     </Box>
-                    <Box>
+                    <Box sx={{ minWidth: 0, flex: 1 }}>
                       <Typography
                         variant="h6"
                         sx={{
                           fontWeight: 700,
-                          fontSize: '1.1rem',
+                          fontSize: { xs: '1rem', md: '1.1rem' },
                           color: isDarkMode ? 'white' : 'black',
                           mb: 0.5,
                         }}
@@ -292,7 +305,7 @@ export default function ContactHero() {
                       <Typography
                         variant="body2"
                         sx={{
-                          fontSize: '0.9rem',
+                          fontSize: { xs: '0.8rem', md: '0.9rem' },
                           color: isDarkMode ? 'rgba(255,255,255,0.6)' : 'rgba(0,0,0,0.6)',
                           fontWeight: 500,
                         }}

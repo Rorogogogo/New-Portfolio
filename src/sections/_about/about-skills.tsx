@@ -101,12 +101,12 @@ export default function AboutSkills() {
         alignItems: 'center',
       }}
     >
-      {/* Skills Orbiting Animation - Exact same size as globe */}
+      {/* Skills Orbiting Animation - Responsive size */}
       <Box
         sx={{
           position: 'relative',
-          width: 800, // Increased to match globe container
-          height: 800, // Increased to match globe container
+          width: { xs: 320, sm: 480, md: 600, lg: 800 },
+          height: { xs: 320, sm: 480, md: 600, lg: 800 },
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -119,8 +119,8 @@ export default function AboutSkills() {
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            width: 140,
-            height: 140,
+            width: { xs: 80, sm: 100, md: 120, lg: 140 },
+            height: { xs: 80, sm: 100, md: 120, lg: 140 },
             borderRadius: '50%',
             background: isDarkMode
               ? 'linear-gradient(135deg, #1a1a1a 0%, #2a2a2a 100%)'
@@ -147,8 +147,8 @@ export default function AboutSkills() {
             src="/favicon/apple-touch-icon.png"
             alt="Robert Wang Portrait"
             sx={{
-              width: 120,
-              height: 120,
+              width: { xs: 60, sm: 80, md: 100, lg: 120 },
+              height: { xs: 60, sm: 80, md: 100, lg: 120 },
               borderRadius: '50%',
               objectFit: 'cover',
             }}
@@ -161,15 +161,15 @@ export default function AboutSkills() {
               key={tech.name}
               className="flex items-center justify-center rounded-full bg-white shadow-lg dark:bg-gray-800"
               style={{
-                width: '70px',
-                height: '70px',
+                width: 'clamp(40px, 8vw, 70px)',
+                height: 'clamp(40px, 8vw, 70px)',
               }}
             >
               <Iconify
                 icon={tech.icon}
                 style={{
-                  width: 42,
-                  height: 42,
+                  width: 'clamp(24px, 5vw, 42px)',
+                  height: 'clamp(24px, 5vw, 42px)',
                   color: tech.color,
                 }}
               />
@@ -183,15 +183,15 @@ export default function AboutSkills() {
               key={tech.name}
               className="flex items-center justify-center rounded-full bg-white shadow-lg dark:bg-gray-800"
               style={{
-                width: '60px',
-                height: '60px',
+                width: 'clamp(35px, 7vw, 60px)',
+                height: 'clamp(35px, 7vw, 60px)',
               }}
             >
               <Iconify
                 icon={tech.icon}
                 style={{
-                  width: 36,
-                  height: 36,
+                  width: 'clamp(20px, 4.5vw, 36px)',
+                  height: 'clamp(20px, 4.5vw, 36px)',
                   color: tech.color,
                 }}
               />
