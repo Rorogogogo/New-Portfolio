@@ -24,8 +24,8 @@ export default function AboutLocation() {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
-              height: 800,
-              width: 800,
+              height: 800, // Back to original size
+              width: 800,  // Back to original size
               mx: 'auto',
               position: 'relative',
             }}
@@ -62,36 +62,36 @@ export default function AboutLocation() {
               }}
             />
 
-            {/* Location info as overlay text */}
+            
+            {/* Simple text below globe - inside the globe container */}
             <Box
               sx={{
                 position: 'absolute',
-                bottom: { xs: 20, md: 40 },
+                bottom: 0, // Right at the edge of the globe
                 left: '50%',
                 transform: 'translateX(-50%)',
                 textAlign: 'center',
-                background: isDarkMode ? 'rgba(0, 0, 0, 0.8)' : 'rgba(255, 255, 255, 0.9)',
-                backdropFilter: 'blur(10px)',
-                borderRadius: 2,
-                p: 2,
-                border: isDarkMode
-                  ? '1px solid rgba(255, 255, 255, 0.1)'
-                  : '1px solid rgba(0, 0, 0, 0.1)',
-                maxWidth: '90%',
+                whiteSpace: 'nowrap',
               }}
             >
               <Typography
-                variant="body2"
+                variant="h6"
                 sx={{
                   color: isDarkMode ? 'grey.300' : 'grey.700',
-                  lineHeight: 1.4,
+                  fontWeight: 500,
+                  mb: 1,
                 }}
               >
-                📍 Currently in Sydney, Australia
-                <br />
-                🎓 University of Sydney
-                <br />
-                🌏 Originally from Zhengzhou, China
+                Location
+              </Typography>
+              <Typography
+                variant="body2"
+                sx={{
+                  color: isDarkMode ? 'grey.400' : 'grey.600',
+                  lineHeight: 1.6,
+                }}
+              >
+                Sydney, Australia • University of Sydney • Originally from China
               </Typography>
             </Box>
           </Box>

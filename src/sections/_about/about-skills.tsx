@@ -4,6 +4,7 @@ import { m } from 'framer-motion';
 
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
+import Typography from '@mui/material/Typography';
 
 import { varFade } from 'src/components/animate';
 import { OrbitingCircles } from 'src/components/magicui/orbiting-circles';
@@ -82,8 +83,8 @@ export default function AboutSkills() {
       <Box
         sx={{
           position: 'relative',
-          width: 600,
-          height: 600,
+          width: 800, // Increased to match globe container
+          height: 800, // Increased to match globe container
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -175,6 +176,39 @@ export default function AboutSkills() {
             </div>
           ))}
         </OrbitingCircles>
+
+        
+        {/* Simple text below orbital - inside the orbital container */}
+        <Box
+          sx={{
+            position: 'absolute',
+            bottom: 0, // Right at the edge of the orbital
+            left: '50%',
+            transform: 'translateX(-50%)',
+            textAlign: 'center',
+            whiteSpace: 'nowrap',
+          }}
+        >
+          <Typography
+            variant="h6"
+            sx={{
+              color: isDarkMode ? 'grey.300' : 'grey.700',
+              fontWeight: 500,
+              mb: 1,
+            }}
+          >
+            Tech Stack
+          </Typography>
+          <Typography
+            variant="body2"
+            sx={{
+              color: isDarkMode ? 'grey.400' : 'grey.600',
+              lineHeight: 1.6,
+            }}
+          >
+            Full Stack Developer • Modern Technologies
+          </Typography>
+        </Box>
       </Box>
     </Container>
   );

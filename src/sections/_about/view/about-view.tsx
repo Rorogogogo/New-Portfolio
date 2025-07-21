@@ -1,19 +1,22 @@
 'use client';
 
+import { useRef } from 'react';
 import Box from '@mui/material/Box';
 
 import FixedHeader from 'src/components/fixed-header';
 import { ThemeProvider, useTheme } from 'src/contexts';
-import Particles from 'src/components/magicui/particles';
 import GlobalLoadingLayout from 'src/components/global-loading-layout';
 
 import AboutHero from '../about-hero';
-import AboutExperience from '../about-experience';
 import AboutLocation from '../about-location';
 import AboutSkills from '../about-skills';
+import AboutExperience from '../about-experience';
+
 
 function AboutContent() {
   const { isDarkMode } = useTheme();
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const experienceRef = useRef<HTMLDivElement>(null);
 
   return (
     <Box
@@ -28,15 +31,6 @@ function AboutContent() {
         transition: 'background-color 0.5s ease-in-out',
       }}
     >
-      {/* Particle Background */}
-      <Particles
-        className=""
-        quantity={isDarkMode ? 50 : 30}
-        staticity={50}
-        ease={50}
-        refresh={false}
-      />
-
       {/* Header */}
       <Box
         sx={{
@@ -57,6 +51,7 @@ function AboutContent() {
 
       {/* Main content area */}
       <Box
+        ref={scrollContainerRef}
         sx={{
           position: 'absolute',
           top: '80px',
@@ -64,6 +59,13 @@ function AboutContent() {
           right: '0px',
           bottom: '0px',
           overflow: 'auto',
+          overflowX: 'hidden', // Prevent horizontal scrolling
+          // Hide scrollbar
+          scrollbarWidth: 'none', // Firefox
+          '&::-webkit-scrollbar': {
+            display: 'none', // Chrome, Safari, Edge
+          },
+          // Remove scrollBehavior: 'smooth' to prevent conflicts with manual animations
         }}
       >
         {/* Hero Section - Summary at top */}
@@ -75,27 +77,34 @@ function AboutContent() {
         <Box
           sx={{
             minHeight: '100vh',
-            display: 'grid',
-            gridTemplateColumns: { xs: '1fr', lg: '1fr 1fr' },
+            display: 'flex',
+            flexDirection: { xs: 'column', lg: 'row' },
             alignItems: 'center',
-            justifyItems: 'center',
-            gap: 4,
-            maxWidth: '1400px',
+            justifyContent: 'center',
+            gap: 0,
+            maxWidth: '1600px',
             mx: 'auto',
             px: 2,
           }}
         >
           {/* Orbital Animation on Left */}
-          <AboutSkills />
+          <Box sx={{ mr: { lg: -10 } }}> {/* Negative margin to pull them closer */}
+            <AboutSkills />
+          </Box>
 
           {/* Globe on Right */}
-          <AboutLocation />
+          <Box sx={{ ml: { lg: -10 } }}> {/* Negative margin to pull them closer */}
+            <AboutLocation />
+          </Box>
         </Box>
 
-        {/* Experience Timeline */}
-        <Box sx={{ minHeight: '100vh', display: 'flex', alignItems: 'center' }}>
-          <AboutExperience />
+        {/* Experience Timeline - No external scroll progress */}
+        <Box ref={experienceRef} sx={{ py: 8 }}>
+          <AboutExperience scrollContainer={scrollContainerRef} />
         </Box>
+
+        {/* Minimal space after experience section */}
+        <Box sx={{ height: '20vh' }} />
       </Box>
     </Box>
   );

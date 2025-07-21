@@ -1,0 +1,11 @@
+/* Hide scrollbars for ScrollStack components */
+.scroll-stack-container,
+.relative.w-full.h-full.overflow-y-auto {
+  -ms-overflow-style: none;  /* Internet Explorer 10+ */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.scroll-stack-container::-webkit-scrollbar,
+.relative.w-full.h-full.overflow-y-auto::-webkit-scrollbar {
+  display: none;  /* Safari and Chrome */
+}
