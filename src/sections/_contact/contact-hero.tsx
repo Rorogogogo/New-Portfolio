@@ -23,7 +23,7 @@ const contactMethods = [
   },
   {
     name: 'LinkedIn',
-    value: 'https://linkedin.com/in/robert-xu-wang',
+    value: 'https://www.linkedin.com/in/robert-wang-cs/',
     icon: 'logos:linkedin-icon',
     color: '#0A66C2',
     action: 'link',
