@@ -28,7 +28,7 @@ const projects = [
   },
   {
     title: 'Everest Impex',
-    url: '#',
+    url: 'https://everestimpex-landingpage.web.app/',
     description: 'Professional landing page.',
     image: '/assets/images/hero/Black&White.png',
     period: 'Nov 2024 – Present',
@@ -47,7 +47,7 @@ const projects = [
   {
     title: 'Mr.R Sushi',
     url: 'https://sushi.jobjourney.me/',
-    description: 'For my parent\'s sushi store.',
+    description: "For my parent's sushi store.",
     image: '/assets/images/hero/Black&White.png',
     period: 'Apr 2025 – Jun 2025',
     technologies: ['TBD'],
