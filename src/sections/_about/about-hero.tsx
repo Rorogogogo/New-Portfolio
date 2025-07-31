@@ -39,18 +39,18 @@ const techStack = [
 function ColorfulDevText() {
   const { isDarkMode } = useTheme();
   const [step, setStep] = useState(0);
-  
+
   const colors = {
-    web: '#FF6B35',      // Orange
-    dev: '#4ECDC4',      // Teal
-    e: '#45B7D1',        // Blue
-    l: '#96CEB4',        // Green
-    o: '#FFEAA7',        // Yellow
-    p: '#DDA0DD',        // Plum
-    e2: '#FFB3BA',       // Pink
-    r: '#FF6B6B',        // Red
-    slash: '#A8E6CF',    // Light Green
-    closing: '#87CEEB'   // Sky Blue
+    web: '#FF6B35', // Orange
+    dev: '#4ECDC4', // Teal
+    e: '#45B7D1', // Blue
+    l: '#96CEB4', // Green
+    o: '#FFEAA7', // Yellow
+    p: '#DDA0DD', // Plum
+    e2: '#FFB3BA', // Pink
+    r: '#FF6B6B', // Red
+    slash: '#A8E6CF', // Light Green
+    closing: '#87CEEB', // Sky Blue
   };
 
   return (
@@ -63,12 +63,12 @@ function ColorfulDevText() {
         mb: 3,
         fontFamily: 'system-ui, -apple-system, sans-serif',
         minHeight: { xs: '180px', md: '220px' }, // Reserve space to prevent layout shift
-        cursor: 'default'
+        cursor: 'default',
       }}
     >
-      <Box 
-        component="span" 
-        sx={{ 
+      <Box
+        component="span"
+        sx={{
           color: isDarkMode ? 'white' : 'black',
           transition: 'all 0.3s ease',
           display: 'inline-block',
@@ -79,21 +79,16 @@ function ColorfulDevText() {
           },
           '&:hover .chinese': {
             opacity: 1,
-          }
+          },
         }}
       >
         <Box component="span" className="english" sx={{ transition: 'opacity 0.3s ease' }}>
-          <Typewriter
-            text="Hello! 👋"
-            delay={500}
-            speed={100}
-            onComplete={() => setStep(1)}
-          />
+          <Typewriter text="Hello! 👋" delay={200} speed={50} onComplete={() => setStep(1)} />
         </Box>
-        <Box 
-          component="span" 
+        <Box
+          component="span"
           className="chinese"
-          sx={{ 
+          sx={{
             position: 'absolute',
             left: 0,
             top: 0,
@@ -108,9 +103,9 @@ function ColorfulDevText() {
       {step >= 1 && (
         <>
           <br />
-          <Box 
-            component="span" 
-            sx={{ 
+          <Box
+            component="span"
+            sx={{
               color: isDarkMode ? 'white' : 'black',
               transition: 'all 0.3s ease',
               display: 'inline-block',
@@ -121,21 +116,21 @@ function ColorfulDevText() {
               },
               '&:hover .chinese': {
                 opacity: 1,
-              }
+              },
             }}
           >
             <Box component="span" className="english" sx={{ transition: 'opacity 0.3s ease' }}>
               <Typewriter
                 text="I'm Robert Wang,"
-                delay={300}
-                speed={80}
+                delay={100}
+                speed={60}
                 onComplete={() => setStep(2)}
               />
             </Box>
-            <Box 
-              component="span" 
+            <Box
+              component="span"
               className="chinese"
-              sx={{ 
+              sx={{
                 position: 'absolute',
                 left: 0,
                 top: 0,
@@ -153,21 +148,16 @@ function ColorfulDevText() {
         <>
           <br />
           <Box component="span" sx={{ color: isDarkMode ? 'white' : 'black' }}>
-            <Typewriter
-              text="a "
-              delay={200}
-              speed={80}
-              onComplete={() => setStep(3)}
-            />
+            <Typewriter text="a " delay={50} speed={60} onComplete={() => setStep(3)} />
           </Box>
         </>
       )}
       {step >= 3 && (
         <>
           {/* Web - separate hover */}
-          <Box 
-            component="span" 
-            sx={{ 
+          <Box
+            component="span"
+            sx={{
               transition: 'all 0.3s ease',
               display: 'inline-block',
               cursor: 'pointer',
@@ -177,18 +167,18 @@ function ColorfulDevText() {
               },
               '&:hover .chinese': {
                 opacity: 1,
-              }
+              },
             }}
           >
             <Box component="span" className="english" sx={{ transition: 'opacity 0.3s ease' }}>
               <Box component="span" sx={{ color: colors.web }}>
-                <Typewriter text="Web" delay={100} speed={120} onComplete={() => setStep(4)} />
+                <Typewriter text="Web" delay={30} speed={150} onComplete={() => setStep(4)} />
               </Box>
             </Box>
-            <Box 
-              component="span" 
+            <Box
+              component="span"
               className="chinese"
-              sx={{ 
+              sx={{
                 position: 'absolute',
                 left: 0,
                 top: 0,
@@ -205,9 +195,9 @@ function ColorfulDevText() {
       {step >= 4 && (
         <>
           {/* <Developer/> - separate hover */}
-          <Box 
-            component="span" 
-            sx={{ 
+          <Box
+            component="span"
+            sx={{
               transition: 'all 0.3s ease',
               display: 'inline-block',
               cursor: 'pointer',
@@ -217,42 +207,42 @@ function ColorfulDevText() {
               },
               '&:hover .chinese': {
                 opacity: 1,
-              }
+              },
             }}
           >
             <Box component="span" className="english" sx={{ transition: 'opacity 0.3s ease' }}>
               <Box component="span" sx={{ color: colors.dev }}>
-                <Typewriter text="<Dev" delay={50} speed={100} onComplete={() => setStep(5)} />
+                <Typewriter text="<Dev" delay={20} speed={150} onComplete={() => setStep(5)} />
               </Box>
               <Box component="span" sx={{ color: colors.e }}>
-                <Typewriter text="e" delay={50} speed={100} onComplete={() => setStep(6)} />
+                <Typewriter text="e" delay={20} speed={150} onComplete={() => setStep(6)} />
               </Box>
               <Box component="span" sx={{ color: colors.l }}>
-                <Typewriter text="l" delay={50} speed={100} onComplete={() => setStep(7)} />
+                <Typewriter text="l" delay={20} speed={150} onComplete={() => setStep(7)} />
               </Box>
               <Box component="span" sx={{ color: colors.o }}>
-                <Typewriter text="o" delay={50} speed={100} onComplete={() => setStep(8)} />
+                <Typewriter text="o" delay={20} speed={150} onComplete={() => setStep(8)} />
               </Box>
               <Box component="span" sx={{ color: colors.p }}>
-                <Typewriter text="p" delay={50} speed={100} onComplete={() => setStep(9)} />
+                <Typewriter text="p" delay={20} speed={150} onComplete={() => setStep(9)} />
               </Box>
               <Box component="span" sx={{ color: colors.e2 }}>
-                <Typewriter text="e" delay={50} speed={100} onComplete={() => setStep(10)} />
+                <Typewriter text="e" delay={20} speed={150} onComplete={() => setStep(10)} />
               </Box>
               <Box component="span" sx={{ color: colors.r }}>
-                <Typewriter text="r" delay={50} speed={100} onComplete={() => setStep(11)} />
+                <Typewriter text="r" delay={20} speed={150} onComplete={() => setStep(11)} />
               </Box>
               <Box component="span" sx={{ color: colors.slash }}>
-                <Typewriter text="/" delay={50} speed={100} onComplete={() => setStep(12)} />
+                <Typewriter text="/" delay={20} speed={150} onComplete={() => setStep(12)} />
               </Box>
               <Box component="span" sx={{ color: colors.closing }}>
-                <Typewriter text=">" delay={50} speed={100} onComplete={() => setStep(13)} />
+                <Typewriter text=">" delay={20} speed={150} onComplete={() => setStep(13)} />
               </Box>
             </Box>
-            <Box 
-              component="span" 
+            <Box
+              component="span"
               className="chinese"
-              sx={{ 
+              sx={{
                 position: 'absolute',
                 left: 0,
                 top: 0,
@@ -272,14 +262,14 @@ function ColorfulDevText() {
       {step >= 13 && (
         <>
           <Box component="span" sx={{ color: isDarkMode ? 'white' : 'black' }}>
-            <Typewriter text="." delay={50} speed={100} onComplete={() => setStep(14)} />
+            <Typewriter text="." delay={20} speed={150} onComplete={() => setStep(14)} />
           </Box>
         </>
       )}
       {step >= 14 && (
         <>
           <Box component="span" sx={{ fontSize: '0.7em' }}>
-            <Typewriter text="👨‍💻" delay={200} speed={150} />
+            <Typewriter text="👨‍💻" delay={50} speed={200} />
           </Box>
         </>
       )}
@@ -318,7 +308,12 @@ export default function AboutHero() {
                 lineHeight: 1.6,
               }}
             >
-              Detail-oriented Software Engineer with experience delivering commercial-grade projects in collaboration with Solution Architects. Proficient in .NET Core, Next.js, React.ts, and RESTful API development, specializing in AI-integrated workflows. Notable projects include JobJourney (AI Job Search Assistant with 750+ users) and StandTogether (non-profit platform featured in SBS media). Passionate about building scalable, secure solutions with cloud-native deployments and automated CI/CD pipelines.
+              Detail-oriented Software Engineer with experience delivering commercial-grade projects
+              in collaboration with Solution Architects. Proficient in .NET Core, Next.js, React.ts,
+              and RESTful API development, specializing in AI-integrated workflows. Notable projects
+              include JobJourney (AI Job Search Assistant with 750+ users) and StandTogether
+              (non-profit platform featured in SBS media). Passionate about building scalable,
+              secure solutions with cloud-native deployments and automated CI/CD pipelines.
             </Typography>
           </BoxReveal>
 
@@ -328,7 +323,6 @@ export default function AboutHero() {
           </Box>
         </m.div>
       </Box>
-
     </Container>
   );
 }

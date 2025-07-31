@@ -10,7 +10,7 @@ import ProjectsFlowingMenu from '../projects-flowing-menu';
 const projects = [
   {
     title: 'StandTogether',
-    url: 'https://standtogether.club',
+    url: 'https://standtogether.club/en',
     description: 'Non-profit platform for youth crime awareness.',
     image: '/assets/images/hero/Black&White.png',
     period: 'May 2025 – Present',
@@ -34,15 +34,6 @@ const projects = [
     period: 'Nov 2024 – Present',
     technologies: ['TBD'],
     logo: '/assets/projects/EverestImpex.png',
-  },
-  {
-    title: 'Jobicore',
-    url: 'https://chromewebstore.google.com/detail/jobicorn/gpmbcfgnpcomljmocajpdppmoeaolaaa',
-    description: 'Unicorn company career linktree platform.',
-    image: '/assets/images/hero/Black&White.png',
-    period: 'Jun 2024 – Present',
-    technologies: ['Chrome Extension', 'React', 'TypeScript'],
-    logo: '/assets/projects/Jobicorn.png',
   },
   {
     title: 'Mr.R Sushi',
