@@ -20,7 +20,7 @@ export default function GlobalLoadingLayout({ children }: GlobalLoadingLayoutPro
   useEffect(() => {
     setLoading(true);
     setShowContent(false);
-    setKey(prev => prev + 1); // Force re-render of loading component
+    setKey((prev) => prev + 1); // Force re-render of loading component
   }, [pathname]);
 
   const handleLoadingComplete = () => {
@@ -39,7 +39,13 @@ export default function GlobalLoadingLayout({ children }: GlobalLoadingLayoutPro
         duration={1800}
         onComplete={handleLoadingComplete}
       >
-        <div style={{ opacity: 0 }}>
+        <div
+          style={{
+            opacity: 0,
+            pointerEvents: 'none',
+            userSelect: 'none',
+          }}
+        >
           {children}
         </div>
       </LoadingLineReveal>
@@ -47,10 +53,11 @@ export default function GlobalLoadingLayout({ children }: GlobalLoadingLayoutPro
   }
 
   return (
-    <div 
-      style={{ 
+    <div
+      style={{
         opacity: showContent ? 1 : 0,
-        transition: 'opacity 0.3s ease-in-out'
+        transition: 'opacity 0.3s ease-in-out',
+        pointerEvents: showContent ? 'auto' : 'none',
       }}
     >
       {children}

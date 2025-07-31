@@ -8,6 +8,18 @@
     ],
     "rewrites": [
       {
+        "source": "/about",
+        "destination": "/about.html"
+      },
+      {
+        "source": "/projects",
+        "destination": "/projects.html"
+      },
+      {
+        "source": "/contact",
+        "destination": "/contact.html"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
