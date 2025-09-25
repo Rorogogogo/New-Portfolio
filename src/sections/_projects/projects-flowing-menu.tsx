@@ -14,6 +14,7 @@ interface ProjectItemProps {
   period: string;
   technologies: string[];
   logo?: string;
+  hideMarqueeTitle?: boolean;
 }
 
 interface ProjectsFlowingMenuProps {
@@ -102,6 +103,7 @@ const ProjectMenuItem: React.FC<ProjectItemProps & { isDarkMode: boolean }> = ({
   period,
   logo,
   isDarkMode,
+  hideMarqueeTitle,
 }) => {
   const itemRef = React.useRef<HTMLDivElement>(null);
   const marqueeRef = React.useRef<HTMLDivElement>(null);
@@ -158,30 +160,36 @@ const ProjectMenuItem: React.FC<ProjectItemProps & { isDarkMode: boolean }> = ({
     return Array.from({ length: 6 }).map((_, idx) => (
       <React.Fragment key={idx}>
         {/* Project Title */}
-        <Box
-          component="span"
-          sx={{
-            color: '#060010',
-            textTransform: 'uppercase',
-            fontWeight: 700,
-            fontSize: { xs: '2.5vh', md: '4vh' },
-            lineHeight: 1.2,
-            padding: '1vh 2vw 0',
-            whiteSpace: 'nowrap',
-          }}
-        >
-          {title}
-        </Box>
+        {!hideMarqueeTitle && (
+          <Box
+            component="span"
+            sx={{
+              color: '#060010',
+              textTransform: 'uppercase',
+              fontWeight: 700,
+              fontSize: { xs: '2.5vh', md: '4vh' },
+              lineHeight: 1.2,
+              padding: '1vh 2vw 0',
+              whiteSpace: 'nowrap',
+            }}
+          >
+            {title}
+          </Box>
+        )}
 
         {/* Project Logo */}
         {logo && (
           <Box
             sx={{
-              width: title === 'JobJourney' 
-                ? { xs: '60px', md: '70px' } 
+              width: title === 'LaunchStory'
+                ? { xs: '120px', md: '150px' }
+                : title === 'JobJourney'
+                ? { xs: '60px', md: '70px' }
                 : { xs: '80px', md: '100px' },
-              height: title === 'JobJourney' 
-                ? { xs: '60px', md: '70px' } 
+              height: title === 'LaunchStory'
+                ? { xs: '60px', md: '75px' }
+                : title === 'JobJourney'
+                ? { xs: '60px', md: '70px' }
                 : { xs: '80px', md: '100px' },
               my: '1em',
               mx: '2vw',

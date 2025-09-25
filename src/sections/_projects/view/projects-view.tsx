@@ -27,6 +27,16 @@ const projects = [
     logo: '/assets/projects/JobJourney.svg',
   },
   {
+    title: 'LaunchStory',
+    url: 'https://launchstory.com.au/',
+    description: 'Digital platform for entrepreneurs and startups.',
+    image: '/assets/images/hero/Black&White.png',
+    period: 'Jul 2025 – Sep 2025',
+    technologies: ['TBD'],
+    logo: '/assets/experience/LAUNCHSTORY.png',
+    hideMarqueeTitle: true,
+  },
+  {
     title: 'Everest Impex',
     url: 'https://everestimpex-landingpage.web.app/',
     description: 'Professional landing page.',
